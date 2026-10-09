@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartivo — Find Clothes That Matches Your Style</title>
+  <meta name="description" content="Cartivo — Shop the latest trends in casual wear, formal attire, jackets, and campus lifestyle essentials. High-quality fashion inspired by international standards.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. ANNOUNCEMENT BAR -->
+  <div class="announcement-bar" id="announcementBar">
+    <div class="announcement-container">
+      <div class="announcement-text">
+        <span>Sign up and get 20% off your first order.</span>
+        <a href="#catalogSection" class="announcement-link" onclick="applyCouponCode('GUVI20')">Sign Up Now</a>
+      </div>
+      <div class="announcement-tools">
+        <div class="role-switcher-pill">
+          <span>Role:</span>
+          <select id="headerRoleSwitcher" onchange="handleRoleSwitch(this.value)">
+            <option value="BUYER">Buyer (Rahul Sharma)</option>
+            <option value="SELLER">Seller (Campus Style)</option>
+            <option value="ADMIN">Admin (System Admin)</option>
+          </select>
+        </div>
+        <button type="button" id="btnTopAddProduct" class="btn-top-add-product" onclick="openAddProductModal()" style="display:none; background:#ffffff; color:#000000; border:none; padding:4px 12px; border-radius:999px; font-size:12px; font-weight:700; cursor:pointer; align-items:center; gap:4px;">+ Add Product</button>
+        <a href="dashboard.html" style="color:#d1d5db; font-size:12px; font-weight:600; text-decoration:none;">Dashboard &rarr;</a>
+        <button type="button" class="btn-announcement-close" onclick="closeAnnouncementBar()" aria-label="Close Announcement">&times;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. NAVIGATION HEADER (Cartivo Style) -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-logo" id="brandLogo">
+        <span class="brand-text">Cartivo</span>
+        <span class="brand-tag">CAMPUS</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="desktop-nav" aria-label="Primary Navigation">
+        <div class="nav-dropdown-wrapper">
+          <div class="nav-link">
+            <span>Shop</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="nav-dropdown-menu">
+            <a href="javascript:void(0)" class="dropdown-item" onclick="filterByCategory(0)">All Products <span>&rarr;</span></a>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="filterByCategory(6)">Casual Wear <span>&rarr;</span></a>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="filterByCategory(7)">Formal & Evening <span>&rarr;</span></a>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="filterByCategory(8)">Outerwear & Coats <span>&rarr;</span></a>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="filterByCategory(1)">Tech Peripherals <span>&rarr;</span></a>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="filterByCategory(2)">Audio Gear <span>&rarr;</span></a>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="filterByCategory(3)">Textbooks & Books <span>&rarr;</span></a>
+          </div>
+        </div>
+        <a href="#newArrivalsSection" class="nav-link">New Arrivals</a>
+        <a href="#topSellingSection" class="nav-link">Top Selling</a>
+        <a href="#dressStyleSection" class="nav-link">Styles</a>
+        <a href="#catalogSection" class="nav-link">On Sale</a>
+      </nav>
+
+      <!-- Pill Search Bar -->
+      <div class="header-search-bar">
+        <svg class="search-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" class="search-input-pill" placeholder="Search for products..." autocomplete="off" oninput="handleSearchInput(this.value)">
+      </div>
+
+      <!-- Action Icons -->
+      <div class="header-actions">
+        <!-- Delivery Route Tracking -->
+        <button type="button" class="header-icon-btn" onclick="openRouteModal()" title="Track Delivery Route" aria-label="Track Route">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13"/>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </button>
+
+        <!-- Wishlist -->
+        <button type="button" class="header-icon-btn" onclick="toggleWishlistDrawer(true)" title="Wishlist" aria-label="Wishlist">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="header-icon-badge" id="wishlistCountBadge">0</span>
+        </button>
+
+        <!-- Shopping Cart -->
+        <button type="button" class="header-icon-btn" id="cartHeaderBtn" onclick="toggleCartDrawer(true)" title="Shopping Cart" aria-label="Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          <span class="header-icon-badge" id="cartCountBadge">0</span>
+        </button>
+
+        <!-- Profile / Dashboard Dropdown -->
+        <a href="dashboard.html" class="header-icon-btn" title="Account / Dashboard" aria-label="Account">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Trigger -->
+        <button type="button" class="hamburger-btn" onclick="toggleMobileNav()" aria-label="Toggle Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- 3. HERO SECTION (Editorial Cartivo Style) -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      
+      <!-- Left Column: Headline, Subtext, CTA, Statistics -->
+      <div class="hero-content">
+        <h1 class="hero-headline">FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
+        <p class="hero-subtext">
+          Browse through our diverse selection of carefully curated garments, designed to bring out your individuality and cater to your sense of style.
+        </p>
+        <a href="#catalogSection" class="hero-cta-btn" onclick="scrollToCatalog()">Shop Now</a>
+
+        <!-- 3 Horizontal Metrics -->
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <span class="hero-stat-number">200+</span>
+            <span class="hero-stat-label">International Brands</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-number">2,000+</span>
+            <span class="hero-stat-label">High-Quality Products</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-number">30,000+</span>
+            <span class="hero-stat-label">Happy Customers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Campaign Media & Sparkle Stars -->
+      <div class="hero-media-wrapper">
+        <!-- Floating Sparkle Stars from Reference -->
+        <svg class="sparkle-star star-top-right" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M50 0 C50 27.6 72.4 50 100 50 C72.4 50 50 72.4 50 100 C50 72.4 27.6 50 0 50 C27.6 50 50 27.6 50 0 Z"/>
+        </svg>
+        <svg class="sparkle-star star-mid-left" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M50 0 C50 27.6 72.4 50 100 50 C72.4 50 50 72.4 50 100 C50 72.4 27.6 50 0 50 C27.6 50 50 27.6 50 0 Z"/>
+        </svg>
+
+        <img src="assets/images/hero_campaign.jpg" alt="Contemporary fashion campaign models" class="hero-campaign-img">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. LUXURY BRAND SHOWCASE BANNER -->
+  <section class="brand-showcase-bar" aria-label="Featured Brands">
+    <div class="brand-showcase-container">
+      <span class="brand-item-title brand-versace">VERSACE</span>
+      <span class="brand-item-title brand-zara">ZARA</span>
+      <span class="brand-item-title brand-gucci">GUCCI</span>
+      <span class="brand-item-title brand-prada">PRADA</span>
+      <span class="brand-item-title brand-calvin">Calvin <strong>Klein</strong></span>
+    </div>
+  </section>
+
+  <!-- 5. NEW ARRIVALS SECTION -->
+  <section class="section-spacer" id="newArrivalsSection">
+    <div class="container">
+      <h2 class="section-heading-centered">NEW ARRIVALS</h2>
+      <div class="products-grid" id="newArrivalsGrid">
+        <!-- Product Cards rendered dynamically with Reference Image 2 layout -->
+      </div>
+      <div class="section-view-all-row">
+        <button type="button" class="btn-view-all" onclick="filterByCategory(0)">View All</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- 6. TOP SELLING SECTION -->
+  <section class="section-spacer" id="topSellingSection">
+    <div class="container">
+      <h2 class="section-heading-centered">TOP SELLING</h2>
+      <div class="products-grid" id="topSellingGrid">
+        <!-- Product Cards rendered dynamically with Reference Image 2 layout -->
+      </div>
+      <div class="section-view-all-row">
+        <button type="button" class="btn-view-all" onclick="filterByCategory(0)">View All</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. BROWSE BY DRESS STYLE (Asymmetric Grid) -->
+  <section class="section-spacer" id="dressStyleSection">
+    <div class="container">
+      <div class="dress-style-wrapper">
+        <h2 class="section-heading-centered" style="margin-bottom:48px;">BROWSE BY DRESS STYLE</h2>
+        
+        <!-- Row 1: Casual (1fr) + Formal (1.6fr) -->
+        <div class="dress-style-grid">
+          <div class="dress-tile" onclick="filterByCategory(6)">
+            <span class="dress-tile-title">Casual</span>
+            <img src="assets/images/cat_casual.jpg" alt="Casual dress style" class="dress-tile-img" loading="lazy">
+          </div>
+          <div class="dress-tile" onclick="filterByCategory(7)">
+            <span class="dress-tile-title">Formal</span>
+            <img src="assets/images/cat_formal.jpg" alt="Formal dress style" class="dress-tile-img" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Row 2: Party (1.6fr) + Gym (1fr) -->
+        <div class="dress-style-grid second-row">
+          <div class="dress-tile" onclick="filterByCategory(7)">
+            <span class="dress-tile-title">Party</span>
+            <img src="assets/images/cat_party.jpg" alt="Party dress style" class="dress-tile-img" loading="lazy">
+          </div>
+          <div class="dress-tile" onclick="filterByCategory(8)">
+            <span class="dress-tile-title">Gym</span>
+            <img src="assets/images/cat_gym.jpg" alt="Gym sportswear style" class="dress-tile-img" loading="lazy">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. SHOP CATALOG & FILTERS SECTION -->
+  <section class="shop-catalog-section" id="catalogSection">
+    <div class="container">
+      
+      <!-- Breadcrumbs -->
+      <div class="shop-breadcrumbs">
+        <a href="index.html">Home</a>
+        <span>&rsaquo;</span>
+        <span id="breadcrumbCategory">Shop</span>
+        <span id="breadcrumbActiveTag"></span>
+      </div>
+
+      <!-- Shop Layout: Left Filter Sidebar + Right Products Grid -->
+      <div class="shop-layout-grid">
+        
+        <!-- Filter Sidebar -->
+        <aside class="filter-card" aria-label="Catalog Filters">
+          <div class="filter-header-row">
+            <h3 class="filter-header-title">Filters</h3>
+            <button type="button" class="btn-filter-reset" onclick="resetAllFilters()">Reset All</button>
+          </div>
+
+          <!-- Category Filter Group -->
+          <div class="filter-group-block">
+            <div class="filter-group-title">Categories</div>
+            <div class="filter-list">
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="catRadio" value="0" checked onchange="filterByCategory(0)">
+                  <span>All Products</span>
+                </div>
+                <span class="filter-count-badge" id="catCountAll">21</span>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="catRadio" value="6" onchange="filterByCategory(6)">
+                  <span>Casual Wear</span>
+                </div>
+                <span class="filter-count-badge">4</span>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="catRadio" value="8" onchange="filterByCategory(8)">
+                  <span>Outerwear & Coats</span>
+                </div>
+                <span class="filter-count-badge">1</span>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="catRadio" value="7" onchange="filterByCategory(7)">
+                  <span>Formal & Evening</span>
+                </div>
+                <span class="filter-count-badge">1</span>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="catRadio" value="1" onchange="filterByCategory(1)">
+                  <span>Tech Peripherals</span>
+                </div>
+                <span class="filter-count-badge">4</span>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="catRadio" value="2" onchange="filterByCategory(2)">
+                  <span>Audio & Wearables</span>
+                </div>
+                <span class="filter-count-badge">2</span>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="catRadio" value="3" onchange="filterByCategory(3)">
+                  <span>Textbooks & CS</span>
+                </div>
+                <span class="filter-count-badge">3</span>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="catRadio" value="4" onchange="filterByCategory(4)">
+                  <span>Hardware & DIY</span>
+                </div>
+                <span class="filter-count-badge">3</span>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="catRadio" value="5" onchange="filterByCategory(5)">
+                  <span>Campus Stationery</span>
+                </div>
+                <span class="filter-count-badge">3</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="filter-group-block">
+            <div class="filter-group-title">Price Range (₹)</div>
+            <div class="price-inputs-row">
+              <input type="number" id="minPriceInput" class="price-box-input" placeholder="Min ₹" min="0" step="50" onchange="applyFilters()">
+              <span style="color:var(--text-light);">-</span>
+              <input type="number" id="maxPriceInput" class="price-box-input" placeholder="Max ₹" min="0" step="100" onchange="applyFilters()">
+            </div>
+          </div>
+
+          <!-- Availability Filter -->
+          <div class="filter-group-block">
+            <div class="filter-group-title">Availability</div>
+            <label class="filter-item-label">
+              <div class="filter-item-left">
+                <input type="checkbox" id="inStockCheckbox" onchange="applyFilters()">
+                <span>In Stock Only</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="filter-group-block">
+            <div class="filter-group-title">Customer Rating</div>
+            <div class="filter-list">
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="ratingRadio" value="0" checked onchange="applyFilters()">
+                  <span>All Ratings</span>
+                </div>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="ratingRadio" value="4.5" onchange="applyFilters()">
+                  <span>★ 4.5 & above</span>
+                </div>
+              </label>
+              <label class="filter-item-label">
+                <div class="filter-item-left">
+                  <input type="radio" name="ratingRadio" value="4.0" onchange="applyFilters()">
+                  <span>★ 4.0 & above</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Size Chips -->
+          <div class="filter-group-block">
+            <div class="filter-group-title">Size</div>
+            <div class="size-chips-grid">
+              <button type="button" class="size-chip-btn active" onclick="toggleSizeFilter(this, 'ALL')">All</button>
+              <button type="button" class="size-chip-btn" onclick="toggleSizeFilter(this, 'XS')">XS</button>
+              <button type="button" class="size-chip-btn" onclick="toggleSizeFilter(this, 'S')">S</button>
+              <button type="button" class="size-chip-btn" onclick="toggleSizeFilter(this, 'M')">M</button>
+              <button type="button" class="size-chip-btn" onclick="toggleSizeFilter(this, 'L')">L</button>
+              <button type="button" class="size-chip-btn" onclick="toggleSizeFilter(this, 'XL')">XL</button>
+            </div>
+          </div>
+
+          <button type="button" class="hero-cta-btn" style="width:100%; border-radius:var(--radius-sm); height:44px; padding:0; margin-top:10px;" onclick="applyFilters()">
+            Apply Filters
+          </button>
+        </aside>
+
+        <!-- Right Side: Catalog Toolbar & Products Grid -->
+        <main class="catalog-content-area">
+          <div class="catalog-top-bar">
+            <div class="catalog-title-group">
+              <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+                <h2 id="catalogCategoryTitle" style="margin:0;">All Products</h2>
+                <button type="button" id="btnCatalogAddProduct" class="hero-cta-btn" onclick="openAddProductModal()" style="display:none; padding:6px 18px; font-size:13px; border-radius:var(--radius-pill); font-weight:700; cursor:pointer;">
+                  + Add Product
+                </button>
+              </div>
+              <div class="catalog-count-info">
+                Showing <strong id="visibleCountText">0</strong> products
+                <span id="activeFilterBadge" style="display:none; margin-left:8px; font-size:12px; background:var(--bg-input); padding:3px 10px; border-radius:999px;"></span>
+              </div>
+            </div>
+
+            <div class="catalog-sort-group">
+              <button type="button" class="btn-mobile-filter" onclick="toggleMobileFilters()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                <span>Filters</span>
+              </button>
+
+              <label for="sortSelect">Sort by:</label>
+              <select id="sortSelect" class="sort-select-pill" onchange="handleSortChange(this.value)">
+                <option value="featured">Most Popular</option>
+                <option value="price_asc">Price: Low to High</option>
+                <option value="price_desc">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- The Main Products Grid -->
+          <div class="products-grid" id="productsGrid" aria-live="polite">
+            <!-- Dynamically populated with Reference Image 2 ProductCard layout -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-catalog-state" id="emptyState" style="display:none;">
+            <h4>No products found</h4>
+            <p id="emptyStateMessage">We couldn't find any products matching your selected search or filter criteria.</p>
+            <button type="button" class="btn-view-all" onclick="resetAllFilters()">Reset All Filters</button>
+          </div>
+        </main>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CUSTOMER REVIEWS -->
+  <section class="section-spacer" id="reviewsSection">
+    <div class="container">
+      <div class="reviews-section-header">
+        <h2 class="section-heading-centered" style="margin-bottom:0; text-align:left;">OUR HAPPY CUSTOMERS</h2>
+        <div class="reviews-nav-arrows">
+          <button type="button" class="btn-review-nav" onclick="showToast('Browsing earlier verified reviews', 'info')" aria-label="Previous Reviews">&larr;</button>
+          <button type="button" class="btn-review-nav" onclick="showToast('Browsing more verified customer reviews', 'info')" aria-label="Next Reviews">&rarr;</button>
+        </div>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-author-line">
+            <span class="review-author-name">Sarah M.</span>
+            <span class="verified-badge-icon" title="Verified Customer">✓</span>
+          </div>
+          <p class="review-text">
+            "I'm blown away by the quality and fit of the clothes. Finding garments that look this elegant and feel so comfortable is rare. Delivery was super fast right to my door!"
+          </p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-author-line">
+            <span class="review-author-name">Alex K.</span>
+            <span class="verified-badge-icon" title="Verified Customer">✓</span>
+          </div>
+          <p class="review-text">
+            "Finding clothes that align with my personal aesthetic used to be a struggle until I discovered Cartivo. The Classic Casual T-shirt and Denim are staples in my wardrobe now."
+          </p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-author-line">
+            <span class="review-author-name">James L.</span>
+            <span class="verified-badge-icon" title="Verified Customer">✓</span>
+          </div>
+          <p class="review-text">
+            "As someone who is particular about fabric weight and clean stitching, the Oversized Wool Coat exceeded all expectations. The entire ordering experience is effortless."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FLOATING NEWSLETTER BANNER -->
+  <div class="newsletter-banner-outer">
+    <div class="newsletter-banner-box">
+      <h2 class="newsletter-headline">STAY UP TO DATE ABOUT OUR LATEST OFFERS</h2>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); handleNewsletterSubscribe();">
+        <div class="newsletter-input-wrap">
+          <svg class="newsletter-mail-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input type="email" id="newsletterEmailInput" class="newsletter-input" placeholder="Enter your email address" required>
+        </div>
+        <button type="submit" class="newsletter-submit-btn">Subscribe to Newsletter</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 11. FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      
+      <div class="footer-top-grid">
+        <!-- Col 1: Brand & Social -->
+        <div class="footer-brand-col">
+          <span class="brand-text">Cartivo</span>
+          <p class="footer-desc">
+            We have clothes that suits your style and which you're proud to wear. From casual campus essentials to refined formal wear.
+          </p>
+          <div class="footer-social-row">
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="footer-social-link" aria-label="Twitter">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="footer-social-link" aria-label="GitHub">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Company -->
+        <div class="footer-nav-col">
+          <h5>Company</h5>
+          <ul class="footer-nav-links">
+            <li><a href="javascript:void(0)">About</a></li>
+            <li><a href="javascript:void(0)">Features</a></li>
+            <li><a href="javascript:void(0)">Works</a></li>
+            <li><a href="javascript:void(0)">Career</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Help -->
+        <div class="footer-nav-col">
+          <h5>Help</h5>
+          <ul class="footer-nav-links">
+            <li><a href="javascript:void(0)">Customer Support</a></li>
+            <li><a href="javascript:void(0)" onclick="openRouteModal()">Delivery Details</a></li>
+            <li><a href="javascript:void(0)">Terms & Conditions</a></li>
+            <li><a href="javascript:void(0)">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: FAQ -->
+        <div class="footer-nav-col">
+          <h5>FAQ</h5>
+          <ul class="footer-nav-links">
+            <li><a href="dashboard.html">Account</a></li>
+            <li><a href="javascript:void(0)" onclick="openRouteModal()">Manage Deliveries</a></li>
+            <li><a href="dashboard.html?role=BUYER">Orders</a></li>
+            <li><a href="javascript:void(0)">Payments</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: Resources & Management -->
+        <div class="footer-nav-col">
+          <h5>Management</h5>
+          <ul class="footer-nav-links">
+            <li><a href="dashboard.html?role=BUYER">Student Buyer Portal</a></li>
+            <li><a href="dashboard.html?role=SELLER">Seller Inventory</a></li>
+            <li><a href="dashboard.html?role=ADMIN">Admin Console</a></li>
+            <li><a href="javascript:void(0)" onclick="openRouteModal()">Live Route Tracking</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="footer-bottom-row">
+        <span class="footer-copyright">Cartivo &copy; 2024-2026, All Rights Reserved. Adapted for GUVI Campus E-Commerce Platform.</span>
+        <div class="footer-payments">
+          <span class="payment-badge">VISA</span>
+          <span class="payment-badge">Mastercard</span>
+          <span class="payment-badge">PayPal</span>
+          <span class="payment-badge">Apple Pay</span>
+          <span class="payment-badge">Google Pay</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==============================================================
+       MODALS & DRAWERS
+       ============================================================== -->
+
+  <!-- PRODUCT DETAIL MODAL (Image 3 "Refined Edge" & Cartivo PDP Style) -->
+  <div class="modal-overlay" id="productModal" onclick="if(event.target === this) closeProductModal();">
+    <div class="modal-window pdp-modal-window">
+      <button type="button" class="modal-close-corner" onclick="closeProductModal()" aria-label="Close">&times;</button>
+      <div class="pdp-layout-grid" id="productModalBody">
+        <!-- Dynamically rendered -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOPPING CART DRAWER -->
+  <div class="drawer-backdrop" id="cartOverlay" onclick="toggleCartDrawer(false)"></div>
+  <aside class="cart-drawer-panel" id="cartDrawer" aria-label="Shopping Cart">
+    <div class="drawer-header">
+      <h3 class="drawer-title">YOUR CART (<span id="cartDrawerCount">0</span>)</h3>
+      <button type="button" class="btn-drawer-close" onclick="toggleCartDrawer(false)">&times;</button>
+    </div>
+
+    <div class="drawer-body-items" id="cartDrawerBody">
+      <!-- Items dynamically populated -->
+    </div>
+
+    <div class="drawer-footer-summary" id="cartDrawerFooter" style="display:none;">
+      <div class="coupon-row">
+        <input type="text" id="couponInput" class="coupon-input" placeholder="Add promo code (Try GUVI20)">
+        <button type="button" class="btn-coupon-apply" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div id="couponMessage" style="font-size:12px; display:none;"></div>
+
+      <div class="summary-line">
+        <span>Subtotal</span>
+        <span id="cartSubtotalText">₹0.00</span>
+      </div>
+      <div class="summary-line" id="discountLine" style="display:none; color:var(--status-success);">
+        <span>Discount (-20%)</span>
+        <span id="cartDiscountText">-₹0.00</span>
+      </div>
+      <div class="summary-line">
+        <span>Delivery Fee</span>
+        <span id="cartShippingText" style="color:var(--status-success);">Free</span>
+      </div>
+      <div class="summary-line total">
+        <span>Total</span>
+        <span id="cartFinalTotalText">₹0.00</span>
+      </div>
+
+      <button type="button" class="btn-drawer-checkout" onclick="openCheckoutModal()">
+        <span>Go to Checkout</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- WISHLIST DRAWER -->
+  <div class="drawer-backdrop" id="wishlistOverlay" onclick="toggleWishlistDrawer(false)"></div>
+  <aside class="cart-drawer-panel" id="wishlistDrawer" aria-label="Saved Wishlist">
+    <div class="drawer-header">
+      <h3 class="drawer-title">SAVED WISHLIST (<span id="wishlistDrawerCount">0</span>)</h3>
+      <button type="button" class="btn-drawer-close" onclick="toggleWishlistDrawer(false)">&times;</button>
+    </div>
+    <div class="drawer-body-items" id="wishlistDrawerBody">
+      <!-- Wishlist items dynamically populated -->
+    </div>
+  </aside>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkoutModal" onclick="if(event.target === this) closeCheckoutModal();">
+    <div class="modal-window route-modal-box">
+      <div class="route-header-strip">
+        <h3>Order Checkout</h3>
+        <button type="button" class="btn-drawer-close" onclick="closeCheckoutModal()">&times;</button>
+      </div>
+      <div class="route-modal-body">
+        <form id="checkoutForm" onsubmit="event.preventDefault(); submitOrder();">
+          <div class="checkout-form-grid">
+            <div>
+              <label class="form-field-label" for="shipName">Recipient Full Name *</label>
+              <input type="text" id="shipName" class="form-field-input" required value="Rahul Sharma">
+            </div>
+            <div>
+              <label class="form-field-label" for="shipPhone">10-Digit Mobile *</label>
+              <input type="tel" id="shipPhone" class="form-field-input" required value="9876543220" pattern="[0-9]{10}">
+            </div>
+            <div class="form-group-full">
+              <label class="form-field-label" for="shipAddress">Delivery Address *</label>
+              <input type="text" id="shipAddress" class="form-field-input" required value="Room 204, Kaveri Hostel, IITM Campus">
+            </div>
+            <div>
+              <label class="form-field-label" for="shipCity">City / Campus</label>
+              <input type="text" id="shipCity" class="form-field-input" value="Chennai" readonly style="background:#e5e7eb;">
+            </div>
+            <div>
+              <label class="form-field-label" for="shipPin">PIN Code *</label>
+              <input type="text" id="shipPin" class="form-field-input" required value="600113" pattern="[0-9]{6}">
+            </div>
+            <div class="form-group-full">
+              <label class="form-field-label" for="payMethod">Payment Method *</label>
+              <select id="payMethod" class="form-field-select" required>
+                <option value="COD">Cash on Campus Delivery (Pay at door)</option>
+                <option value="UPI">Instant UPI (GPay / PhonePe / Paytm)</option>
+                <option value="NET_BANKING">Net Banking (SBI / HDFC / ICICI)</option>
+                <option value="CARD">Credit / Debit Card</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="background:var(--bg-offwhite); border-radius:var(--radius-md); padding:16px; margin:20px 0;">
+            <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px;">
+              <span>Total Payable Amount:</span>
+              <strong id="checkoutFinalAmountText" style="font-size:16px;">₹0.00</strong>
+            </div>
+            <div style="font-size:12px; color:var(--text-muted);">
+              Estimated Delivery: <strong>Today by 7:00 PM</strong> &bull; Free express delivery
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; justify-content:flex-end;">
+            <button type="button" class="btn-view-all" onclick="closeCheckoutModal()">Back to Cart</button>
+            <button type="submit" class="hero-cta-btn" id="btnPlaceOrder" style="border-radius:var(--radius-pill); padding:12px 32px;">Confirm & Place Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER SUCCESS MODAL -->
+  <div class="modal-overlay" id="orderSuccessModal">
+    <div class="modal-window" style="max-width:500px; text-align:center; padding:40px 30px;">
+      <div style="width:64px; height:64px; border-radius:50%; background:#e6f7ec; color:#059669; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h3 style="font-family:var(--font-heading); font-size:24px; font-weight:800; margin-bottom:10px;">Order Placed Successfully!</h3>
+      <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px; line-height:1.6;">
+        Your order confirmation number is <strong id="successOrderNum" style="color:var(--text-main); font-family:var(--font-mono);"></strong>. An SMS confirmation has been dispatched.
+      </p>
+      <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+        <button type="button" class="hero-cta-btn" style="padding:12px 28px;" onclick="trackNewlyPlacedOrder()">Track Delivery Route</button>
+        <button type="button" class="btn-view-all" onclick="closeOrderSuccessModal()">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELIVERY ROUTE TRACKING MODAL -->
+  <div class="modal-overlay" id="routeModal" onclick="if(event.target === this) closeRouteModal();">
+    <div class="modal-window route-modal-box">
+      <div class="route-header-strip">
+        <h3>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13"/>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+          Delivery Route & Order Tracking
+        </h3>
+        <button type="button" class="btn-drawer-close" onclick="closeRouteModal()">&times;</button>
+      </div>
+
+      <div class="route-modal-body">
+        <div class="route-search-bar">
+          <input type="text" id="routeSearchInput" placeholder="Enter Order # (e.g. ORD-2026-1004)">
+          <button type="button" class="btn-track-action" onclick="lookupRouteOrder()">Track Route</button>
+        </div>
+
+        <div class="route-quick-chips" id="routeQuickChips"></div>
+
+        <div class="route-status-card" id="routeInfoCard">
+          <div class="route-card-top">
+            <div>
+              <span class="route-order-id" id="routeOrderNum">ORD-2026-1004</span>
+              <span class="route-status-pill badge-status badge-out_for_delivery" id="routeStatusBadge">OUT_FOR_DELIVERY</span>
+            </div>
+            <div style="font-size:12px; font-weight:600; color:var(--text-muted);">
+              Express Courier &bull; Van #8
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; font-size:13px; line-height:1.5;">
+            <div>
+              <div style="color:var(--text-muted); font-size:11px; text-transform:uppercase;">Destination Address:</div>
+              <strong id="routeAddress">Room 204, Kaveri Hostel, IITM Campus</strong>
+            </div>
+            <div>
+              <div style="color:var(--text-muted); font-size:11px; text-transform:uppercase;">Estimated Delivery:</div>
+              <strong id="routeEstimatedTime" style="color:var(--status-success);">Today by 7:00 PM</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-Stage Interactive Timeline -->
+        <div class="route-timeline" id="routeTimeline"></div>
+
+        <div id="routeItemsBox" style="margin-top:20px; background:var(--bg-input); padding:16px; border-radius:var(--radius-md);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Product Modal -->
+  <div class="modal-overlay" id="addProductModal" role="dialog" aria-modal="true" aria-labelledby="addProductModalTitle" onclick="if(event.target === this && !isSavingProduct) closeAddProductModal();">
+    <div class="modal-window add-product-modal-window">
+      <div class="modal-header-strip">
+        <div>
+          <h3 id="addProductModalTitle" style="font-family:var(--font-heading); font-size:22px; font-weight:800; color:var(--text-heading); margin:0 0 4px 0;">Add New Product</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Publish a new item to your seller catalog & student storefront</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button type="submit" form="addProductForm" class="hero-cta-btn" id="btnQuickAddProduct" style="padding:8px 22px; font-size:13px; font-weight:700; border-radius:var(--radius-pill); cursor:pointer;">
+            + Add Product
+          </button>
+          <button type="button" class="modal-close-corner" onclick="closeAddProductModal()" aria-label="Close modal" id="btnCloseAddProductModal" style="position:static;">&times;</button>
+        </div>
+      </div>
+
+      <form id="addProductForm" onsubmit="submitAddProduct(event)" novalidate>
+        <div class="modal-body-content">
+          <!-- Alert box for form-level errors -->
+          <div id="addProductErrorAlert" class="form-error-alert" style="display:none;" role="alert"></div>
+
+          <!-- Section 1: Basic Information -->
+          <div class="form-section-card">
+            <h5 class="form-section-title">1. Product Information</h5>
+            <div class="checkout-form-grid">
+              <div class="form-group-full">
+                <label for="prodName" class="form-field-label">Product Name <span class="required-star">*</span></label>
+                <input type="text" id="prodName" class="form-field-input" placeholder="e.g. Vintage Washed Denim Jacket" required maxlength="200">
+                <span class="field-error-msg" id="errProdName"></span>
+              </div>
+
+              <div>
+                <label for="prodCategory" class="form-field-label">Category <span class="required-star">*</span></label>
+                <select id="prodCategory" class="form-field-select" required>
+                  <option value="">-- Select Category --</option>
+                  <option value="6" selected>Casual Wear</option>
+                  <option value="7">Formal & Evening</option>
+                  <option value="8">Outerwear & Coats</option>
+                  <option value="1">Computer Peripherals</option>
+                  <option value="2">Audio & Wearables</option>
+                  <option value="3">CS & Engineering Books</option>
+                  <option value="4">Lab & DIY Hardware</option>
+                  <option value="5">Campus & Stationery</option>
+                </select>
+                <span class="field-error-msg" id="errProdCategory"></span>
+              </div>
+
+              <div>
+                <label for="prodBrand" class="form-field-label">Brand / Sub-label</label>
+                <input type="text" id="prodBrand" class="form-field-input" placeholder="e.g. Campus Style Studio" maxlength="100">
+                <span class="field-error-msg" id="errProdBrand"></span>
+              </div>
+
+              <div class="form-group-full">
+                <label for="prodSpecs" class="form-field-label">Short Specifications / Highlights</label>
+                <input type="text" id="prodSpecs" class="form-field-input" placeholder="e.g. 100% Combed Cotton • 240 GSM • Relaxed Cut" maxlength="255">
+                <span class="field-error-msg" id="errProdSpecs"></span>
+              </div>
+
+              <div class="form-group-full">
+                <label for="prodDesc" class="form-field-label">Product Description <span class="required-star">*</span></label>
+                <textarea id="prodDesc" class="form-field-input" style="height:88px; padding:12px 14px; resize:vertical; font-family:inherit; font-size:14px; line-height:1.5;" placeholder="Provide details on fabric blend, fit, wash care, and styling notes..." required></textarea>
+                <span class="field-error-msg" id="errProdDesc"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Pricing, Inventory & Status -->
+          <div class="form-section-card" style="margin-top:18px;">
+            <h5 class="form-section-title">2. Pricing & Inventory</h5>
+            <div class="checkout-form-grid">
+              <div>
+                <label for="prodPrice" class="form-field-label">Selling Price (₹) <span class="required-star">*</span></label>
+                <input type="number" id="prodPrice" class="form-field-input" placeholder="e.g. 1299" min="1" step="0.01" required oninput="calcAddProductDiscount()">
+                <span class="field-error-msg" id="errProdPrice"></span>
+              </div>
+
+              <div>
+                <label for="prodMrp" class="form-field-label">Original Price / MRP (₹) <span class="required-star">*</span></label>
+                <input type="number" id="prodMrp" class="form-field-input" placeholder="e.g. 1999" min="1" step="0.01" required oninput="calcAddProductDiscount()">
+                <span class="field-error-msg" id="errProdMrp"></span>
+              </div>
+
+              <div>
+                <label for="prodStock" class="form-field-label">Available Stock Quantity <span class="required-star">*</span></label>
+                <input type="number" id="prodStock" class="form-field-input" placeholder="e.g. 35" min="0" step="1" required>
+                <span class="field-error-msg" id="errProdStock"></span>
+              </div>
+
+              <div>
+                <label for="prodStatus" class="form-field-label">Listing Status</label>
+                <select id="prodStatus" class="form-field-select">
+                  <option value="ACTIVE" selected>Active (Published to Store)</option>
+                  <option value="INACTIVE">Inactive (Draft / Hidden)</option>
+                </select>
+              </div>
+
+              <div class="form-group-full" id="discountPreviewRow" style="display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--bg-input); border-radius:var(--radius-sm); font-size:13px;">
+                <span style="color:var(--text-muted); font-weight:600;">Pricing Summary:</span>
+                <span id="badgeDiscountCalc" class="card-discount-badge" style="display:none;">-0% OFF</span>
+                <span id="textDiscountCalc" style="color:var(--text-muted); font-size:12px;">Enter price & MRP to see discount percentage</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Media & Variants -->
+          <div class="form-section-card" style="margin-top:18px;">
+            <h5 class="form-section-title">3. Media & Variants</h5>
+            <div class="checkout-form-grid">
+              <div class="form-group-full">
+                <label for="prodImageSelect" class="form-field-label">Product Image Selection <span class="required-star">*</span></label>
+                <div style="display:grid; grid-template-columns: 1fr auto; gap:14px; align-items:start;">
+                  <div>
+                    <select id="prodImageSelect" class="form-field-select" onchange="onAddProductImageChange()">
+                      <option value="tshirt_casual.jpg" selected>Classic Casual T-Shirt (tshirt_casual.jpg)</option>
+                      <option value="denim_jeans.jpg">Washed Denim Jeans (denim_jeans.jpg)</option>
+                      <option value="wool_coat.jpg">Meridian Wool Coat (wool_coat.jpg)</option>
+                      <option value="graphic_tshirt.jpg">Graphic Streetwear T-Shirt (graphic_tshirt.jpg)</option>
+                      <option value="checkered_shirt.jpg">Buffalo Checkered Flannel (checkered_shirt.jpg)</option>
+                      <option value="striped_shirt.jpg">Vertical Striped Oxford Shirt (striped_shirt.jpg)</option>
+                      <option value="cat_casual.jpg">Editorial Streetwear (cat_casual.jpg)</option>
+                      <option value="cat_formal.jpg">Tailored Formal Suit (cat_formal.jpg)</option>
+                      <option value="cat_gym.jpg">Athletic Activewear (cat_gym.jpg)</option>
+                      <option value="cat_party.jpg">Evening & Partywear (cat_party.jpg)</option>
+                      <option value="headphones.jpg">boAt Bluetooth Headphones (headphones.jpg)</option>
+                      <option value="mouse.jpg">Logitech Optical Mouse (mouse.jpg)</option>
+                      <option value="keyboard.jpg">Mechanical Keyboard (keyboard.jpg)</option>
+                      <option value="custom">-- Enter Custom Image URL or Filename --</option>
+                    </select>
+                    <input type="text" id="prodCustomImageUrl" class="form-field-input" placeholder="e.g. assets/images/new_apparel.jpg or https://..." style="margin-top:8px; display:none;" oninput="updateAddProductImgPreview()">
+                    <span class="field-error-msg" id="errProdImage"></span>
+                  </div>
+                  <div class="add-prod-img-preview-box">
+                    <img id="addProductImgPreview" src="assets/images/tshirt_casual.jpg" alt="Preview" onerror="this.src='assets/images/mouse.jpg'">
+                    <span style="font-size:10px; color:var(--text-muted); display:block; text-align:center; margin-top:4px;">Live Preview</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-full">
+                <label class="form-field-label">Available Sizes (Fashion Variants)</label>
+                <div class="variant-sizes-pill-row">
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="XS"> <span>XS</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="S" checked> <span>S</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="M" checked> <span>M</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="L" checked> <span>L</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="XL" checked> <span>XL</span></label>
+                </div>
+              </div>
+
+              <div>
+                <label for="prodSku" class="form-field-label">SKU / Product Code (Optional)</label>
+                <input type="text" id="prodSku" class="form-field-input" placeholder="e.g. SK-2026-FSH01" maxlength="50">
+              </div>
+
+              <div>
+                <label for="prodRatingDisplay" class="form-field-label">Initial Product Rating</label>
+                <input type="text" id="prodRatingDisplay" class="form-field-input" value="★ 4.5 (Verified Reviews Standard)" disabled style="background:#e9ecef; cursor:not-allowed; color:var(--text-muted);">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="btn-view-all" onclick="closeAddProductModal()" id="btnCancelAddProduct" style="border:1px solid var(--border-subtle); padding:10px 22px; cursor:pointer;">Cancel</button>
+          <button type="submit" class="hero-cta-btn" id="btnSaveProduct" style="padding:10px 32px; border-radius:var(--radius-pill); font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+            <span id="btnSaveProductSpinner" class="spinner-inline" style="display:none;"></span>
+            <span id="btnSaveProductText">+ Add Product</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="assertive"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

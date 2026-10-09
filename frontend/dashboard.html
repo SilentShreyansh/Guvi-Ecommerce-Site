@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartivo — Management Portal (Buyer / Seller / Admin)</title>
+  <meta name="description" content="Cartivo management portal for Buyer orders, Seller inventory, and Admin moderation.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="announcement-bar">
+    <div class="announcement-container">
+      <div class="announcement-text">
+        <span>Cartivo Management Portal &bull; Multi-Role E-Commerce Administration</span>
+      </div>
+      <div class="announcement-tools">
+        <a href="index.html" style="color:#ffffff; font-weight:700; text-decoration:none;">&larr; Back to Store</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <span class="brand-text">Cartivo</span>
+        <span class="brand-tag">PORTAL</span>
+      </a>
+
+      <!-- Role Tabs -->
+      <div class="dashboard-nav-tabs" style="margin-bottom:0;" aria-label="Role Switcher">
+        <button type="button" class="dash-tab-btn active" id="tabBuyer" onclick="switchDashboardRole('BUYER')">Buyer View</button>
+        <button type="button" class="dash-tab-btn" id="tabSeller" onclick="switchDashboardRole('SELLER')">Seller View</button>
+        <button type="button" class="dash-tab-btn" id="tabAdmin" onclick="switchDashboardRole('ADMIN')">Admin View</button>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:16px;">
+        <button type="button" class="hero-cta-btn" id="btnHeaderAddProduct" onclick="openAddProductModal()" style="display:none; padding:8px 18px; font-size:13px; border-radius:var(--radius-pill); font-weight:700;">+ Add Product</button>
+        <div style="font-size:13px; text-align:right;">
+          <strong id="dashUserName">Rahul Sharma</strong><br>
+          <span style="font-size:11px; color:var(--text-muted);" id="dashUserEmail">rahul.s@student.guvi.in</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard-container">
+    
+    <div style="margin-bottom:28px;">
+      <h2 id="dashHeading" style="font-family:var(--font-heading); font-size:28px; font-weight:900; margin-bottom:6px;">Student Buyer Dashboard</h2>
+      <p id="dashSubheading" style="color:var(--text-muted); font-size:14px;">Review past purchases, download order receipts, and track express campus hostel packages.</p>
+    </div>
+
+    <!-- 4 Stats Cards -->
+    <div class="metrics-row" id="metricsGrid"></div>
+
+    <!-- BUYER VIEW -->
+    <div id="buyerSection">
+      <div class="dash-table-card">
+        <div class="dash-table-header">
+          <h4 class="dash-table-title">My Orders</h4>
+          <span style="font-size:12px; color:var(--text-muted);">Real-time status tracking</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="dash-data-table" id="buyerOrdersTable">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Items Ordered</th>
+                <th>Total Amount</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="buyerOrdersTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+        <div class="metric-stat-box">
+          <h4 style="margin-bottom:12px; font-family:var(--font-heading); font-size:16px; font-weight:800;">Saved Delivery Address</h4>
+          <p style="font-size:13px; line-height:1.6; color:var(--text-muted);">
+            <strong style="color:var(--text-main);">Rahul Sharma</strong><br>
+            Room 204, Kaveri Hostel, IITM Campus<br>
+            Chennai, Tamil Nadu - 600113<br>
+            Mobile: +91 98765 43220
+          </p>
+          <button type="button" class="btn-view-all" style="margin-top:14px; padding:6px 16px; font-size:12px;" onclick="showToast('Address management active', 'info')">
+            Edit Address
+          </button>
+        </div>
+
+        <div class="metric-stat-box">
+          <h4 style="margin-bottom:12px; font-family:var(--font-heading); font-size:16px; font-weight:800;">Account & Verification</h4>
+          <p style="font-size:13px; line-height:1.8; color:var(--text-muted);">
+            <strong>Email:</strong> rahul.s@student.guvi.in<br>
+            <strong>Role:</strong> BUYER (Verified Account)<br>
+            <strong>Status:</strong> <span class="badge-status badge-active">ACTIVE</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SELLER VIEW -->
+    <div id="sellerSection" style="display:none;">
+      <div class="dash-table-card">
+        <div class="dash-table-header">
+          <h4 class="dash-table-title">Inventory & Product Catalog</h4>
+          <button type="button" id="btnAddProduct" class="hero-cta-btn" style="display:none; padding:8px 20px; font-size:13px; border-radius:var(--radius-pill);" onclick="openAddProductModal()">
+            + Add Product
+          </button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="dash-data-table" id="sellerProductsTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>MRP</th>
+                <th>Stock</th>
+                <th>Rating</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sellerProductsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="dash-table-card">
+        <div class="dash-table-header">
+          <h4 class="dash-table-title">Order Fulfillment & Dispatch</h4>
+          <span style="font-size:12px; color:var(--text-muted);">Advance status as orders are packed</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="dash-data-table" id="sellerFulfillTable">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Recipient</th>
+                <th>Delivery Address</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sellerFulfillTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div id="adminSection" style="display:none;">
+
+      <!-- Admin Sub Navigation Tabs -->
+      <div class="admin-subnav-bar">
+        <div class="admin-nav-pills" role="tablist" aria-label="Admin Sections">
+          <button type="button" class="admin-pill-btn active" id="btnAdminTabActivity" onclick="switchAdminSubTab('activity')">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#16a34a; margin-right:6px;"></span>
+            Activity Monitoring
+          </button>
+          <button type="button" class="admin-pill-btn" id="btnAdminTabProducts" onclick="switchAdminSubTab('products')">Product Management</button>
+          <button type="button" class="admin-pill-btn" id="btnAdminTabOrders" onclick="switchAdminSubTab('orders')">Order Management</button>
+          <button type="button" class="admin-pill-btn" id="btnAdminTabUsers" onclick="switchAdminSubTab('users')">User Moderation</button>
+          <button type="button" class="admin-pill-btn" id="btnAdminTabAll" onclick="switchAdminSubTab('all')">Show All</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button type="button" class="hero-cta-btn" onclick="openAddProductModal()" style="padding:6px 18px; font-size:12px; border-radius:var(--radius-pill); font-weight:700;">+ Add Product</button>
+        </div>
+      </div>
+
+      <!-- 1. System Activity Monitoring Panel -->
+      <div id="adminActivityPanel" class="admin-sub-panel">
+        <div class="dash-table-card">
+          <div class="dash-table-header">
+            <div>
+              <h4 class="dash-table-title">System Activity & Interaction Monitoring</h4>
+              <p style="font-size:12px; color:var(--text-muted); margin:2px 0 0 0;">Real-time stream of student purchases, catalog updates, user authentications & daemon workers</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+              <span class="live-stream-badge" id="liveStreamBadge">
+                <span class="dot"></span>
+                <span id="liveStreamStatusText">LIVE STREAM ACTIVE</span>
+              </span>
+              <button type="button" class="btn-view-all" id="btnToggleLiveStream" onclick="toggleActivityLiveStream()" style="padding:6px 14px; font-size:12px;">Pause Stream</button>
+              <button type="button" class="hero-cta-btn" onclick="simulateUserInteraction()" style="padding:6px 16px; font-size:12px; border-radius:var(--radius-pill); background:var(--btn-cart-blue);">Simulate Activity</button>
+              <button type="button" class="btn-view-all" onclick="clearActivityFeed()" style="padding:6px 12px; font-size:12px;" title="Clear activity stream">Clear Feed</button>
+            </div>
+          </div>
+
+          <!-- System Health KPI Cards -->
+          <div style="padding:20px 24px 8px;">
+            <div class="system-health-grid">
+              <div class="system-health-box">
+                <div class="system-health-title">Database Engine</div>
+                <div class="system-health-value" id="adminDbStatusText" style="font-size:16px;">
+                  <span style="color:var(--status-success);">●</span> Live Connected
+                </div>
+                <div class="system-health-detail" id="adminDbSubtext">MySQL 8.0 / In-Memory Store</div>
+              </div>
+              <div class="system-health-box">
+                <div class="system-health-title">Inventory Daemon</div>
+                <div class="system-health-value" id="adminDaemonStatus">
+                  <span style="color:var(--status-success);">●</span> Running
+                </div>
+                <div class="system-health-detail" id="adminLowStockAlertCount">30s polling cycle active</div>
+              </div>
+              <div class="system-health-box">
+                <div class="system-health-title">Active User Sessions</div>
+                <div class="system-health-value" id="adminActiveSessionsCount">5 Online</div>
+                <div class="system-health-detail">Buyers, Sellers & Admins</div>
+              </div>
+              <div class="system-health-box">
+                <div class="system-health-title">Logged Platform Events</div>
+                <div class="system-health-value" id="adminTotalEventsCount">0</div>
+                <div class="system-health-detail">Transactions, catalog & auth</div>
+              </div>
+            </div>
+
+            <!-- Activity Filter Pills -->
+            <div class="filter-chip-row" style="margin-bottom:12px;">
+              <span style="font-size:12px; font-weight:700; color:var(--text-muted); margin-right:4px;">Filter Activity:</span>
+              <button type="button" class="filter-chip active" onclick="filterActivityFeed('ALL', this)">All Events</button>
+              <button type="button" class="filter-chip" onclick="filterActivityFeed('ORDER', this)">Orders & Fulfillment</button>
+              <button type="button" class="filter-chip" onclick="filterActivityFeed('PRODUCT', this)">Catalog & Stock</button>
+              <button type="button" class="filter-chip" onclick="filterActivityFeed('USER', this)">User & Auth</button>
+              <button type="button" class="filter-chip" onclick="filterActivityFeed('INVENTORY', this)">Inventory Daemon</button>
+              <button type="button" class="filter-chip" onclick="filterActivityFeed('SYSTEM', this)">System & Server</button>
+            </div>
+          </div>
+
+          <!-- Activity Stream Feed -->
+          <div class="activity-feed-container" id="adminActivityFeed">
+            <div style="text-align:center; padding:30px; color:var(--text-muted); font-size:13px;">Loading system activity stream...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Product Management Panel -->
+      <div id="adminProductsPanel" class="admin-sub-panel">
+        <div class="dash-table-card">
+          <div class="dash-table-header">
+            <div>
+              <h4 class="dash-table-title">Product Catalog & Inventory Management</h4>
+              <p style="font-size:12px; color:var(--text-muted); margin:2px 0 0 0;">Table listing all merchandise with adding, editing, and removal controls</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <button type="button" class="hero-cta-btn" onclick="openAddProductModal()" style="padding:8px 20px; font-size:13px; border-radius:var(--radius-pill); font-weight:700;">+ Add Product</button>
+              <button type="button" class="btn-view-all" onclick="renderAdminProductManagement()" style="padding:8px 14px; font-size:12px;">Refresh</button>
+            </div>
+          </div>
+
+          <!-- Filter Toolbar for Products -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-group">
+              <input type="text" id="adminProdSearchInput" class="admin-search-input" placeholder="Search by name, ID, specs..." oninput="onAdminProductFilterChange()">
+              <select id="adminProdCategoryFilter" class="admin-select-filter" onchange="onAdminProductFilterChange()">
+                <option value="0">All Categories</option>
+                <option value="1">Computer Peripherals</option>
+                <option value="2">Audio & Wearables</option>
+                <option value="3">CS & Engineering Books</option>
+                <option value="4">Lab & DIY Hardware</option>
+                <option value="5">Campus & Stationery</option>
+                <option value="6">Casual Wear</option>
+                <option value="7">Formal & Evening</option>
+                <option value="8">Outerwear & Coats</option>
+              </select>
+              <select id="adminProdStockFilter" class="admin-select-filter" onchange="onAdminProductFilterChange()">
+                <option value="ALL">All Stock Levels</option>
+                <option value="IN_STOCK">In Stock (> 15)</option>
+                <option value="LOW_STOCK">Low Stock (1 – 15)</option>
+                <option value="OUT_OF_STOCK">Out of Stock (0)</option>
+              </select>
+            </div>
+            <div class="admin-toolbar-group">
+              <span style="font-size:12px; color:var(--text-muted);">Sort:</span>
+              <select id="adminProdSortSelect" class="admin-select-filter" onchange="onAdminProductFilterChange()">
+                <option value="id_asc">Product ID (Asc)</option>
+                <option value="id_desc">Product ID (Desc)</option>
+                <option value="price_asc">Price: Low to High</option>
+                <option value="price_desc">Price: High to Low</option>
+                <option value="stock_asc">Stock: Low to High</option>
+                <option value="stock_desc">Stock: High to Low</option>
+                <option value="rating_desc">Highest Rated</option>
+              </select>
+              <span id="adminProductCountBadge" class="activity-chip" style="font-weight:700;">0 Products</span>
+            </div>
+          </div>
+
+          <!-- Products Table -->
+          <div style="overflow-x:auto;">
+            <table class="dash-data-table" id="adminProductsTable">
+              <thead>
+                <tr>
+                  <th style="width:60px;">ID</th>
+                  <th>Product Details</th>
+                  <th>Category</th>
+                  <th>Seller</th>
+                  <th>Price / MRP</th>
+                  <th>Stock Quantity</th>
+                  <th>Rating</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductsTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Order Management Panel -->
+      <div id="adminOrdersPanel" class="admin-sub-panel">
+        <div class="dash-table-card">
+          <div class="dash-table-header">
+            <div>
+              <h4 class="dash-table-title">Order Management & Fulfillment Control</h4>
+              <p style="font-size:12px; color:var(--text-muted); margin:2px 0 0 0;">View current orders with status updates, delivery routes & package fulfillment</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span id="adminOrdersSummaryBadge" class="activity-chip" style="font-weight:700;">0 Orders</span>
+              <button type="button" class="btn-view-all" onclick="renderAdminOrderManagement()" style="padding:6px 14px; font-size:12px;">Refresh</button>
+            </div>
+          </div>
+
+          <!-- Filter Toolbar for Orders -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-group">
+              <input type="text" id="adminOrderSearchInput" class="admin-search-input" placeholder="Search Order #, buyer, hostel address..." oninput="onAdminOrderFilterChange()">
+              <select id="adminOrderStatusFilter" class="admin-select-filter" onchange="onAdminOrderFilterChange()">
+                <option value="ALL">All Order Statuses</option>
+                <option value="CONFIRMED">Confirmed / Placed</option>
+                <option value="SHIPPED">Shipped (In-Transit)</option>
+                <option value="OUT_FOR_DELIVERY">Out for Delivery</option>
+                <option value="DELIVERED">Delivered</option>
+                <option value="CANCELLED">Cancelled</option>
+              </select>
+              <select id="adminOrderPaymentFilter" class="admin-select-filter" onchange="onAdminOrderFilterChange()">
+                <option value="ALL">All Payment Methods</option>
+                <option value="UPI">UPI Express</option>
+                <option value="COD">Cash on Delivery (COD)</option>
+                <option value="NET_BANKING">Net Banking</option>
+              </select>
+            </div>
+            <div class="admin-toolbar-group">
+              <span id="adminOrderRevenueBadge" class="activity-chip" style="background:#e6f7ec; color:#059669; font-weight:700;">₹0 Revenue</span>
+            </div>
+          </div>
+
+          <!-- Orders Table -->
+          <div style="overflow-x:auto;">
+            <table class="dash-data-table" id="adminOrdersTable">
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Date & Time</th>
+                  <th>Buyer & Recipient</th>
+                  <th>Delivery Address</th>
+                  <th>Ordered Items</th>
+                  <th>Total Amount</th>
+                  <th>Order Status</th>
+                  <th style="text-align:right;">Fulfillment Options</th>
+                </tr>
+              </thead>
+              <tbody id="adminOrdersTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. User Moderation Panel -->
+      <div id="adminUsersPanel" class="admin-sub-panel">
+        <div class="dash-table-card">
+          <div class="dash-table-header">
+            <div>
+              <h4 class="dash-table-title">User Management & Moderation</h4>
+              <p style="font-size:12px; color:var(--text-muted); margin:2px 0 0 0;">Manage platform accounts, role assignments, and suspension status</p>
+            </div>
+            <span id="adminUserCountBadge" class="activity-chip" style="font-weight:700;">0 Accounts</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="dash-data-table" id="adminUsersTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminUsersTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Add Product Modal in Dashboard -->
+  <div class="modal-overlay" id="addProductModal" role="dialog" aria-modal="true" aria-labelledby="addProductModalTitle" onclick="if(event.target === this && !isSavingProduct) closeAddProductModal();">
+    <div class="modal-window add-product-modal-window">
+      <div class="modal-header-strip">
+        <div>
+          <h3 id="addProductModalTitle" style="font-family:var(--font-heading); font-size:22px; font-weight:800; color:var(--text-heading); margin:0 0 4px 0;">Add New Product</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Publish a new item to your seller catalog & student storefront</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button type="submit" form="addProductForm" class="hero-cta-btn" id="btnQuickAddProduct" style="padding:8px 22px; font-size:13px; font-weight:700; border-radius:var(--radius-pill); cursor:pointer;">
+            + Add Product
+          </button>
+          <button type="button" class="modal-close-corner" onclick="closeAddProductModal()" aria-label="Close modal" id="btnCloseAddProductModal" style="position:static;">&times;</button>
+        </div>
+      </div>
+
+      <form id="addProductForm" onsubmit="submitAddProduct(event)" novalidate>
+        <div class="modal-body-content">
+          <!-- Alert box for form-level errors -->
+          <div id="addProductErrorAlert" class="form-error-alert" style="display:none;" role="alert"></div>
+
+          <!-- Section 1: Basic Information -->
+          <div class="form-section-card">
+            <h5 class="form-section-title">1. Product Information</h5>
+            <div class="checkout-form-grid">
+              <div class="form-group-full">
+                <label for="prodName" class="form-field-label">Product Name <span class="required-star">*</span></label>
+                <input type="text" id="prodName" class="form-field-input" placeholder="e.g. Vintage Washed Denim Jacket" required maxlength="200">
+                <span class="field-error-msg" id="errProdName"></span>
+              </div>
+
+              <div>
+                <label for="prodCategory" class="form-field-label">Category <span class="required-star">*</span></label>
+                <select id="prodCategory" class="form-field-select" required>
+                  <option value="">-- Select Category --</option>
+                  <option value="6" selected>Casual Wear</option>
+                  <option value="7">Formal & Evening</option>
+                  <option value="8">Outerwear & Coats</option>
+                  <option value="1">Computer Peripherals</option>
+                  <option value="2">Audio & Wearables</option>
+                  <option value="3">CS & Engineering Books</option>
+                  <option value="4">Lab & DIY Hardware</option>
+                  <option value="5">Campus & Stationery</option>
+                </select>
+                <span class="field-error-msg" id="errProdCategory"></span>
+              </div>
+
+              <div>
+                <label for="prodBrand" class="form-field-label">Brand / Sub-label</label>
+                <input type="text" id="prodBrand" class="form-field-input" placeholder="e.g. Campus Style Studio" maxlength="100">
+                <span class="field-error-msg" id="errProdBrand"></span>
+              </div>
+
+              <div class="form-group-full">
+                <label for="prodSpecs" class="form-field-label">Short Specifications / Highlights</label>
+                <input type="text" id="prodSpecs" class="form-field-input" placeholder="e.g. 100% Combed Cotton • 240 GSM • Relaxed Cut" maxlength="255">
+                <span class="field-error-msg" id="errProdSpecs"></span>
+              </div>
+
+              <div class="form-group-full">
+                <label for="prodDesc" class="form-field-label">Product Description <span class="required-star">*</span></label>
+                <textarea id="prodDesc" class="form-field-input" style="height:88px; padding:12px 14px; resize:vertical; font-family:inherit; font-size:14px; line-height:1.5;" placeholder="Provide details on fabric blend, fit, wash care, and styling notes..." required></textarea>
+                <span class="field-error-msg" id="errProdDesc"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Pricing, Inventory & Status -->
+          <div class="form-section-card" style="margin-top:18px;">
+            <h5 class="form-section-title">2. Pricing & Inventory</h5>
+            <div class="checkout-form-grid">
+              <div>
+                <label for="prodPrice" class="form-field-label">Selling Price (₹) <span class="required-star">*</span></label>
+                <input type="number" id="prodPrice" class="form-field-input" placeholder="e.g. 1299" min="1" step="0.01" required oninput="calcAddProductDiscount()">
+                <span class="field-error-msg" id="errProdPrice"></span>
+              </div>
+
+              <div>
+                <label for="prodMrp" class="form-field-label">Original Price / MRP (₹) <span class="required-star">*</span></label>
+                <input type="number" id="prodMrp" class="form-field-input" placeholder="e.g. 1999" min="1" step="0.01" required oninput="calcAddProductDiscount()">
+                <span class="field-error-msg" id="errProdMrp"></span>
+              </div>
+
+              <div>
+                <label for="prodStock" class="form-field-label">Available Stock Quantity <span class="required-star">*</span></label>
+                <input type="number" id="prodStock" class="form-field-input" placeholder="e.g. 35" min="0" step="1" required>
+                <span class="field-error-msg" id="errProdStock"></span>
+              </div>
+
+              <div>
+                <label for="prodStatus" class="form-field-label">Listing Status</label>
+                <select id="prodStatus" class="form-field-select">
+                  <option value="ACTIVE" selected>Active (Published to Store)</option>
+                  <option value="INACTIVE">Inactive (Draft / Hidden)</option>
+                </select>
+              </div>
+
+              <div class="form-group-full" id="discountPreviewRow" style="display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--bg-input); border-radius:var(--radius-sm); font-size:13px;">
+                <span style="color:var(--text-muted); font-weight:600;">Pricing Summary:</span>
+                <span id="badgeDiscountCalc" class="card-discount-badge" style="display:none;">-0% OFF</span>
+                <span id="textDiscountCalc" style="color:var(--text-muted); font-size:12px;">Enter price & MRP to see discount percentage</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Media & Variants -->
+          <div class="form-section-card" style="margin-top:18px;">
+            <h5 class="form-section-title">3. Media & Variants</h5>
+            <div class="checkout-form-grid">
+              <div class="form-group-full">
+                <label for="prodImageSelect" class="form-field-label">Product Image Selection <span class="required-star">*</span></label>
+                <div style="display:grid; grid-template-columns: 1fr auto; gap:14px; align-items:start;">
+                  <div>
+                    <select id="prodImageSelect" class="form-field-select" onchange="onAddProductImageChange()">
+                      <option value="tshirt_casual.jpg" selected>Classic Casual T-Shirt (tshirt_casual.jpg)</option>
+                      <option value="denim_jeans.jpg">Washed Denim Jeans (denim_jeans.jpg)</option>
+                      <option value="wool_coat.jpg">Meridian Wool Coat (wool_coat.jpg)</option>
+                      <option value="graphic_tshirt.jpg">Graphic Streetwear T-Shirt (graphic_tshirt.jpg)</option>
+                      <option value="checkered_shirt.jpg">Buffalo Checkered Flannel (checkered_shirt.jpg)</option>
+                      <option value="striped_shirt.jpg">Vertical Striped Oxford Shirt (striped_shirt.jpg)</option>
+                      <option value="cat_casual.jpg">Editorial Streetwear (cat_casual.jpg)</option>
+                      <option value="cat_formal.jpg">Tailored Formal Suit (cat_formal.jpg)</option>
+                      <option value="cat_gym.jpg">Athletic Activewear (cat_gym.jpg)</option>
+                      <option value="cat_party.jpg">Evening & Partywear (cat_party.jpg)</option>
+                      <option value="headphones.jpg">boAt Bluetooth Headphones (headphones.jpg)</option>
+                      <option value="mouse.jpg">Logitech Optical Mouse (mouse.jpg)</option>
+                      <option value="keyboard.jpg">Mechanical Keyboard (keyboard.jpg)</option>
+                      <option value="custom">-- Enter Custom Image URL or Filename --</option>
+                    </select>
+                    <input type="text" id="prodCustomImageUrl" class="form-field-input" placeholder="e.g. assets/images/new_apparel.jpg or https://..." style="margin-top:8px; display:none;" oninput="updateAddProductImgPreview()">
+                    <span class="field-error-msg" id="errProdImage"></span>
+                  </div>
+                  <div class="add-prod-img-preview-box">
+                    <img id="addProductImgPreview" src="assets/images/tshirt_casual.jpg" alt="Preview" onerror="this.src='assets/images/mouse.jpg'">
+                    <span style="font-size:10px; color:var(--text-muted); display:block; text-align:center; margin-top:4px;">Live Preview</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-full">
+                <label class="form-field-label">Available Sizes (Fashion Variants)</label>
+                <div class="variant-sizes-pill-row">
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="XS"> <span>XS</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="S" checked> <span>S</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="M" checked> <span>M</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="L" checked> <span>L</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="XL" checked> <span>XL</span></label>
+                </div>
+              </div>
+
+              <div>
+                <label for="prodSku" class="form-field-label">SKU / Product Code (Optional)</label>
+                <input type="text" id="prodSku" class="form-field-input" placeholder="e.g. SK-2026-FSH01" maxlength="50">
+              </div>
+
+              <div>
+                <label for="prodRatingDisplay" class="form-field-label">Initial Product Rating</label>
+                <input type="text" id="prodRatingDisplay" class="form-field-input" value="★ 4.5 (Verified Reviews Standard)" disabled style="background:#e9ecef; cursor:not-allowed; color:var(--text-muted);">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="btn-view-all" onclick="closeAddProductModal()" id="btnCancelAddProduct" style="border:1px solid var(--border-subtle); padding:10px 22px; cursor:pointer;">Cancel</button>
+          <button type="submit" class="hero-cta-btn" id="btnSaveProduct" style="padding:10px 32px; border-radius:var(--radius-pill); font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+            <span id="btnSaveProductSpinner" class="spinner-inline" style="display:none;"></span>
+            <span id="btnSaveProductText">+ Add Product</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Route Modal in Dashboard -->
+  <div class="modal-overlay" id="routeModal" onclick="if(event.target === this) closeRouteModal();">
+    <div class="modal-window route-modal-box">
+      <div class="route-header-strip">
+        <h3>Delivery Route & Order Tracking</h3>
+        <button type="button" class="btn-drawer-close" onclick="closeRouteModal()">&times;</button>
+      </div>
+      <div class="route-modal-body">
+        <div class="route-search-bar">
+          <input type="text" id="routeSearchInput" placeholder="Enter Order #">
+          <button type="button" class="btn-track-action" onclick="lookupRouteOrder()">Track Route</button>
+        </div>
+        <div class="route-quick-chips" id="routeQuickChips"></div>
+        <div class="route-status-card" id="routeInfoCard">
+          <div class="route-card-top">
+            <div>
+              <span class="route-order-id" id="routeOrderNum">ORD-2026-1004</span>
+              <span class="route-status-pill badge-status badge-out_for_delivery" id="routeStatusBadge">OUT_FOR_DELIVERY</span>
+            </div>
+          </div>
+          <div style="font-size:13px; line-height:1.6;">
+            <strong>Destination:</strong> <span id="routeAddress">Room 204, Kaveri Hostel</span><br>
+            <strong>Estimated:</strong> <span id="routeEstimatedTime" style="color:var(--status-success);">Today by 7:00 PM</span>
+          </div>
+        </div>
+        <div class="route-timeline" id="routeTimeline"></div>
+        <div id="routeItemsBox" style="margin-top:20px; background:var(--bg-input); padding:16px; border-radius:var(--radius-md);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Product Modal in Dashboard -->
+  <div class="modal-overlay" id="editProductModal" role="dialog" aria-modal="true" aria-labelledby="editProductModalTitle" onclick="if(event.target === this && !isSavingEditProduct) closeEditProductModal();">
+    <div class="modal-window add-product-modal-window">
+      <div class="modal-header-strip">
+        <div>
+          <h3 id="editProductModalTitle" style="font-family:var(--font-heading); font-size:22px; font-weight:800; color:var(--text-heading); margin:0 0 4px 0;">Edit Product Details</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Modify pricing, specs, inventory units & listing status</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button type="submit" form="editProductForm" class="hero-cta-btn" id="btnQuickSaveEditProduct" style="padding:8px 22px; font-size:13px; font-weight:700; border-radius:var(--radius-pill); cursor:pointer;">
+            Save Changes
+          </button>
+          <button type="button" class="modal-close-corner" onclick="closeEditProductModal()" aria-label="Close modal" id="btnCloseEditProductModal" style="position:static;">&times;</button>
+        </div>
+      </div>
+
+      <form id="editProductForm" onsubmit="submitEditProduct(event)" novalidate>
+        <input type="hidden" id="editProdId">
+        <div class="modal-body-content">
+          <div id="editProductErrorAlert" class="form-error-alert" style="display:none;" role="alert"></div>
+
+          <!-- Section 1: Product Information -->
+          <div class="form-section-card">
+            <h5 class="form-section-title">1. Product Information</h5>
+            <div class="checkout-form-grid">
+              <div class="form-group-full">
+                <label for="editProdName" class="form-field-label">Product Name <span class="required-star">*</span></label>
+                <input type="text" id="editProdName" class="form-field-input" placeholder="e.g. Logitech B100 Optical Mouse" required maxlength="200">
+                <span class="field-error-msg" id="errEditProdName"></span>
+              </div>
+
+              <div>
+                <label for="editProdCategory" class="form-field-label">Category <span class="required-star">*</span></label>
+                <select id="editProdCategory" class="form-field-select" required>
+                  <option value="">-- Select Category --</option>
+                  <option value="1">Computer Peripherals</option>
+                  <option value="2">Audio & Wearables</option>
+                  <option value="3">CS & Engineering Books</option>
+                  <option value="4">Lab & DIY Hardware</option>
+                  <option value="5">Campus & Stationery</option>
+                  <option value="6">Casual Wear</option>
+                  <option value="7">Formal & Evening</option>
+                  <option value="8">Outerwear & Coats</option>
+                </select>
+                <span class="field-error-msg" id="errEditProdCategory"></span>
+              </div>
+
+              <div>
+                <label for="editProdBrand" class="form-field-label">Seller / Brand Name</label>
+                <input type="text" id="editProdBrand" class="form-field-input" placeholder="e.g. Campus Tech Store" maxlength="100">
+              </div>
+
+              <div class="form-group-full">
+                <label for="editProdSpecs" class="form-field-label">Short Specifications / Highlights</label>
+                <input type="text" id="editProdSpecs" class="form-field-input" placeholder="e.g. Wired USB • 800 DPI • 3-Button" maxlength="255">
+              </div>
+
+              <div class="form-group-full">
+                <label for="editProdDesc" class="form-field-label">Product Description <span class="required-star">*</span></label>
+                <textarea id="editProdDesc" class="form-field-input" style="height:88px; padding:12px 14px; resize:vertical; font-family:inherit; font-size:14px; line-height:1.5;" placeholder="Comprehensive specifications, warranty details, and student lab notes..." required></textarea>
+                <span class="field-error-msg" id="errEditProdDesc"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Pricing & Inventory -->
+          <div class="form-section-card" style="margin-top:18px;">
+            <h5 class="form-section-title">2. Pricing, Stock & Visibility</h5>
+            <div class="checkout-form-grid">
+              <div>
+                <label for="editProdPrice" class="form-field-label">Selling Price (₹) <span class="required-star">*</span></label>
+                <input type="number" id="editProdPrice" class="form-field-input" placeholder="e.g. 999" min="1" step="0.01" required oninput="calcEditProductDiscount()">
+                <span class="field-error-msg" id="errEditProdPrice"></span>
+              </div>
+
+              <div>
+                <label for="editProdMrp" class="form-field-label">Original Price / MRP (₹) <span class="required-star">*</span></label>
+                <input type="number" id="editProdMrp" class="form-field-input" placeholder="e.g. 1499" min="1" step="0.01" required oninput="calcEditProductDiscount()">
+                <span class="field-error-msg" id="errEditProdMrp"></span>
+              </div>
+
+              <div>
+                <label for="editProdStock" class="form-field-label">Available Stock Quantity <span class="required-star">*</span></label>
+                <input type="number" id="editProdStock" class="form-field-input" placeholder="e.g. 25" min="0" step="1" required>
+                <span class="field-error-msg" id="errEditProdStock"></span>
+                <div style="display:flex; gap:6px; margin-top:6px;">
+                  <button type="button" class="btn-view-all" style="padding:2px 8px; font-size:11px;" onclick="adjustEditModalStock(5)">+5</button>
+                  <button type="button" class="btn-view-all" style="padding:2px 8px; font-size:11px;" onclick="adjustEditModalStock(10)">+10</button>
+                  <button type="button" class="btn-view-all" style="padding:2px 8px; font-size:11px;" onclick="adjustEditModalStock(25)">+25</button>
+                  <button type="button" class="btn-view-all" style="padding:2px 8px; font-size:11px; color:#dc2626;" onclick="document.getElementById('editProdStock').value=0">Set 0</button>
+                </div>
+              </div>
+
+              <div>
+                <label for="editProdStatus" class="form-field-label">Listing Status</label>
+                <select id="editProdStatus" class="form-field-select">
+                  <option value="ACTIVE" selected>Active (Live in Storefront)</option>
+                  <option value="INACTIVE">Inactive (Hidden / Suspended)</option>
+                </select>
+              </div>
+
+              <div class="form-group-full" id="editDiscountPreviewRow" style="display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--bg-input); border-radius:var(--radius-sm); font-size:13px;">
+                <span style="color:var(--text-muted); font-weight:600;">Pricing Summary:</span>
+                <span id="editBadgeDiscountCalc" class="card-discount-badge" style="display:none;">-0% OFF</span>
+                <span id="editTextDiscountCalc" style="color:var(--text-muted); font-size:12px;">Enter price & MRP to see discount percentage</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Media -->
+          <div class="form-section-card" style="margin-top:18px;">
+            <h5 class="form-section-title">3. Image & Media</h5>
+            <div class="checkout-form-grid">
+              <div class="form-group-full">
+                <label for="editProdImageSelect" class="form-field-label">Product Image <span class="required-star">*</span></label>
+                <div style="display:grid; grid-template-columns: 1fr auto; gap:14px; align-items:start;">
+                  <div>
+                    <select id="editProdImageSelect" class="form-field-select" onchange="onEditProductImageChange()">
+                      <option value="mouse.jpg">Logitech Optical Mouse (mouse.jpg)</option>
+                      <option value="keyboard.jpg">Bharat Gold Keyboard (keyboard.jpg)</option>
+                      <option value="pendrive.jpg">SanDisk Ultra Flash Drive (pendrive.jpg)</option>
+                      <option value="usbhub.jpg">Portronics 4-Port USB Hub (usbhub.jpg)</option>
+                      <option value="headphones.jpg">boAt Bluetooth Headphones (headphones.jpg)</option>
+                      <option value="earphones.jpg">Boult Audio Earphones (earphones.jpg)</option>
+                      <option value="book_clrs.jpg">Algorithms CLRS Book (book_clrs.jpg)</option>
+                      <option value="book_os.jpg">Operating System Book (book_os.jpg)</option>
+                      <option value="book_db.jpg">Database System Concepts (book_db.jpg)</option>
+                      <option value="raspberrypi.jpg">Raspberry Pi 4 Model B (raspberrypi.jpg)</option>
+                      <option value="arduino.jpg">Arduino Uno Starter Kit (arduino.jpg)</option>
+                      <option value="calculator.jpg">Casio Scientific Calculator (calculator.jpg)</option>
+                      <option value="tshirt_casual.jpg">Classic Casual T-Shirt (tshirt_casual.jpg)</option>
+                      <option value="denim_jeans.jpg">Washed Denim Jeans (denim_jeans.jpg)</option>
+                      <option value="wool_coat.jpg">Meridian Wool Coat (wool_coat.jpg)</option>
+                      <option value="custom">-- Enter Custom Image URL or Filename --</option>
+                    </select>
+                    <input type="text" id="editProdCustomImageUrl" class="form-field-input" placeholder="e.g. assets/images/new.jpg or https://..." style="margin-top:8px; display:none;" oninput="updateEditProductImgPreview()">
+                  </div>
+                  <div class="add-prod-img-preview-box">
+                    <img id="editProductImgPreview" src="assets/images/mouse.jpg" alt="Preview" onerror="this.src='assets/images/mouse.jpg'">
+                    <span style="font-size:10px; color:var(--text-muted); display:block; text-align:center; margin-top:4px;">Live Preview</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="btn-view-all" onclick="closeEditProductModal()" id="btnCancelEditProduct" style="border:1px solid var(--border-subtle); padding:10px 22px; cursor:pointer;">Cancel</button>
+          <button type="submit" class="hero-cta-btn" id="btnSaveEditProduct" style="padding:10px 32px; border-radius:var(--radius-pill); font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+            <span id="btnSaveEditProductSpinner" class="spinner-inline" style="display:none;"></span>
+            <span id="btnSaveEditProductText">Save Changes</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Product Confirmation Modal -->
+  <div class="modal-overlay" id="deleteProductModal" role="dialog" aria-modal="true" aria-labelledby="deleteProductModalTitle" onclick="if(event.target === this) closeDeleteProductModal();">
+    <div class="modal-window" style="max-width:480px; padding:0; overflow:hidden;">
+      <div style="padding:24px 28px; border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; gap:14px;">
+        <div style="width:44px; height:44px; border-radius:50%; background:#fee2e2; color:#dc2626; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:900; flex-shrink:0;">
+          &#9888;
+        </div>
+        <div>
+          <h3 id="deleteProductModalTitle" style="font-family:var(--font-heading); font-size:20px; font-weight:800; color:var(--text-heading); margin:0 0 2px 0;">Remove Product</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Confirm deletion from active store catalog</p>
+        </div>
+      </div>
+      <div style="padding:24px 28px;">
+        <p style="font-size:14px; line-height:1.6; color:var(--text-main);">
+          Are you sure you want to permanently remove <strong id="deleteProdTargetName">Product</strong> (<span id="deleteProdTargetId" style="font-family:var(--font-mono); font-weight:700;">#0</span>) from the platform catalog?
+        </p>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:10px; background:var(--bg-input); padding:10px 14px; border-radius:var(--radius-sm);">
+          This item will be deactivated and removed from student storefront listings and search index.
+        </p>
+      </div>
+      <div style="padding:16px 28px; border-top:1px solid var(--border-subtle); display:flex; justify-content:flex-end; gap:12px; background:#fafafa;">
+        <button type="button" class="btn-view-all" onclick="closeDeleteProductModal()" style="border:1px solid var(--border-subtle); padding:8px 20px;">Cancel</button>
+        <button type="button" class="hero-cta-btn" id="btnConfirmDeleteProduct" style="background:#dc2626; padding:8px 24px; border-radius:var(--radius-pill); font-weight:700;" onclick="executeDeleteProduct()">Yes, Remove Product</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Details & Fulfillment Modal -->
+  <div class="modal-overlay" id="orderDetailsModal" role="dialog" aria-modal="true" aria-labelledby="orderDetailsModalTitle" onclick="if(event.target === this) closeOrderDetailsModal();">
+    <div class="modal-window" style="max-width:760px; max-height:90vh; display:flex; flex-direction:column; padding:0; overflow:hidden;">
+      <div class="modal-header-strip">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <h3 id="orderDetailsModalTitle" style="font-family:var(--font-heading); font-size:20px; font-weight:800; color:var(--text-heading); margin:0;">Order #ORD-2026-1001</h3>
+            <span id="orderModalStatusBadge" class="badge-status badge-confirmed">CONFIRMED</span>
+          </div>
+          <p id="orderModalDateText" style="font-size:12px; color:var(--text-muted); margin:3px 0 0 0;">Placed on: 2026-10-08 14:30:00</p>
+        </div>
+        <button type="button" class="modal-close-corner" onclick="closeOrderDetailsModal()" aria-label="Close modal" style="position:static;">&times;</button>
+      </div>
+
+      <div style="padding:24px 28px; overflow-y:auto; flex:1;">
+        <div class="order-modal-summary-grid">
+          <div class="order-modal-box">
+            <h5 style="font-family:var(--font-heading); font-size:13px; font-weight:800; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px;">Customer & Recipient</h5>
+            <strong id="orderModalBuyerName">Rahul Sharma</strong><br>
+            <span id="orderModalBuyerPhone" style="color:var(--text-muted);">Phone: +91 98765 43220</span><br>
+            <span id="orderModalPaymentInfo" style="color:var(--text-muted);">Payment: UPI (COMPLETED)</span>
+          </div>
+          <div class="order-modal-box">
+            <h5 style="font-family:var(--font-heading); font-size:13px; font-weight:800; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px;">Campus Delivery Destination</h5>
+            <span id="orderModalAddress">Room 204, Kaveri Hostel, IITM Campus</span><br>
+            <span id="orderModalPincode" style="color:var(--text-muted);">Pincode: 600113 • Express Dispatch</span>
+          </div>
+        </div>
+
+        <h5 style="font-family:var(--font-heading); font-size:15px; font-weight:800; margin:16px 0 10px;">Ordered Merchandise</h5>
+        <div style="overflow-x:auto; border:1px solid var(--border-subtle); border-radius:var(--radius-md); margin-bottom:18px;">
+          <table class="dash-data-table" style="margin:0;">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th style="text-align:right;">Line Total</th>
+              </tr>
+            </thead>
+            <tbody id="orderModalItemsTbody"></tbody>
+          </table>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; background:var(--bg-input); padding:16px 20px; border-radius:var(--radius-md);">
+          <div>
+            <span style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px;">Update Fulfillment Status:</span>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <select id="orderModalStatusSelect" class="form-field-select" style="padding:6px 12px; font-size:13px; width:auto;">
+                <option value="CONFIRMED">CONFIRMED</option>
+                <option value="SHIPPED">SHIPPED</option>
+                <option value="OUT_FOR_DELIVERY">OUT_FOR_DELIVERY</option>
+                <option value="DELIVERED">DELIVERED</option>
+                <option value="CANCELLED">CANCELLED</option>
+              </select>
+              <button type="button" class="hero-cta-btn" onclick="saveOrderModalStatusChange()" style="padding:7px 18px; font-size:12px; border-radius:var(--radius-pill);">Update</button>
+            </div>
+          </div>
+          <div style="text-align:right; min-width:200px;">
+            <div style="font-size:13px; color:var(--text-muted); margin-bottom:4px;">Subtotal: <span id="orderModalSubtotal">₹0</span></div>
+            <div style="font-size:13px; color:var(--status-success); margin-bottom:4px;">Discount: -<span id="orderModalDiscount">₹0</span></div>
+            <div style="font-size:13px; color:var(--text-muted); margin-bottom:4px;">Tax (5%): <span id="orderModalTax">₹0</span></div>
+            <div style="font-family:var(--font-heading); font-size:18px; font-weight:900; color:var(--text-heading);">Final Total: <span id="orderModalFinalTotal">₹0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer-actions">
+        <button type="button" class="btn-view-all" id="btnOrderModalTrackRoute" style="border:1px solid var(--border-subtle); padding:8px 20px;" onclick="trackOrderFromModal()">Track Route</button>
+        <button type="button" class="btn-view-all" onclick="closeOrderDetailsModal()" style="border:1px solid var(--border-subtle); padding:8px 24px;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer" aria-live="assertive"></div>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      initDashboard();
+    });
+  </script>
+</body>
+</html>

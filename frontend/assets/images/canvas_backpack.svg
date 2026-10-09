@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Top handle -->
+  <path d="M88,45 C88,32 112,32 112,45" fill="none" stroke="#78350f" stroke-width="4" stroke-linecap="round"/>
+  <!-- Bag Body -->
+  <path d="M65,58 C65,45 135,45 135,58 L140,145 C140,152 135,155 125,155 L75,155 C65,155 60,152 60,145 Z" fill="#b45309" stroke="#78350f" stroke-width="2"/>
+  <!-- Flap -->
+  <path d="M64,55 L136,55 L130,95 L70,95 Z" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <!-- Front pocket -->
+  <rect x="75" y="110" width="50" height="35" rx="4" fill="#92400e"/>
+  <!-- Leather straps -->
+  <rect x="80" y="55" width="6" height="50" rx="2" fill="#78350f"/>
+  <rect x="114" y="55" width="6" height="50" rx="2" fill="#78350f"/>
+  <circle cx="83" cy="98" r="2" fill="#fef08a"/>
+  <circle cx="117" cy="98" r="2" fill="#fef08a"/>
+  <text x="100" y="180" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Campus Canvas Backpack</text>
+</svg>

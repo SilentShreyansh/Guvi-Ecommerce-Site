@@ -1,0 +1,5 @@
+2026/10/07-23:21:50.900 6130 Creating DB C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/10/07-23:21:51.071 6130 Reusing MANIFEST C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/10/07-23:22:04.193 344c Level-0 table #5: started
+2026/10/07-23:22:04.199 344c Level-0 table #5: 683273 bytes OK
+2026/10/07-23:22:04.204 344c Delete type=0 #3

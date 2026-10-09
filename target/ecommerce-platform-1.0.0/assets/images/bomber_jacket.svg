@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Rib collar -->
+  <path d="M78,52 C78,42 122,42 122,52" fill="none" stroke="#1c1917" stroke-width="8" stroke-linecap="round"/>
+  <!-- Body & Sleeves -->
+  <path d="M68,52 L32,90 L48,100 L64,82 L64,142 L136,142 L136,82 L152,100 L168,90 L132,52 Z" fill="#365314" stroke="#1a2e05" stroke-width="2"/>
+  <!-- Front zipper -->
+  <line x1="100" y1="52" x2="100" y2="142" stroke="#ea580c" stroke-width="2.5"/>
+  <!-- Sleeve utility pocket -->
+  <rect x="42" y="80" width="14" height="18" rx="2" fill="#1a2e05" transform="rotate(35 49 89)"/>
+  <!-- Bottom rib band -->
+  <rect x="64" y="142" width="72" height="10" fill="#1c1917"/>
+  <text x="100" y="175" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Lightweight Bomber Jacket</text>
+</svg>

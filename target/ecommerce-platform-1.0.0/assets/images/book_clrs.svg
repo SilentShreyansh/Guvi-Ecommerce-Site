@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Book Cover -->
+  <rect x="55" y="30" width="95" height="135" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+  <!-- Spine stripe -->
+  <rect x="55" y="30" width="12" height="135" rx="1" fill="#0d9488"/>
+  <!-- Pages depth -->
+  <path d="M150,35 L155,38 L155,168 L150,165 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <path d="M60,165 L65,168 L155,168 L150,165 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <!-- Title text on cover -->
+  <text x="110" y="60" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle" font-weight="600">MIT PRESS</text>
+  <text x="110" y="80" font-family="-apple-system, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="800">INTRODUCTION</text>
+  <text x="110" y="93" font-family="-apple-system, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="800">TO ALGORITHMS</text>
+  <rect x="75" y="102" width="70" height="1" fill="#0d9488"/>
+  <text x="110" y="118" font-family="-apple-system, sans-serif" font-size="8" fill="#cbd5e1" text-anchor="middle">Cormen • Leiserson</text>
+  <text x="110" y="128" font-family="-apple-system, sans-serif" font-size="8" fill="#cbd5e1" text-anchor="middle">Rivest • Stein</text>
+  <text x="110" y="152" font-family="-apple-system, sans-serif" font-size="8" fill="#38bdf8" text-anchor="middle" font-weight="700">4th Edition</text>
+  <text x="100" y="190" font-family="-apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="600">CLRS Algorithms 4th Ed</text>
+</svg>

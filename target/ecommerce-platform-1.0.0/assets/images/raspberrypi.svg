@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- PCB Board (Raspberry Pi Green) -->
+  <rect x="35" y="45" width="130" height="100" rx="8" fill="#15803d" stroke="#166534" stroke-width="2"/>
+  <!-- SoC Chip (Broadcom) -->
+  <rect x="75" y="75" width="30" height="30" rx="2" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="90" y="93" font-family="-apple-system, sans-serif" font-size="7" fill="#ffffff" text-anchor="middle" font-weight="700">BCM2711</text>
+  <!-- RAM chip -->
+  <rect x="78" y="112" width="24" height="14" rx="1" fill="#334155"/>
+  <!-- GPIO 40-Pin Header -->
+  <rect x="42" y="50" width="90" height="12" fill="#0f172a" rx="1"/>
+  <!-- Dual Micro HDMI & USB-C -->
+  <rect x="50" y="140" width="12" height="8" fill="#94a3b8"/>
+  <rect x="70" y="140" width="10" height="8" fill="#94a3b8"/>
+  <rect x="88" y="140" width="10" height="8" fill="#94a3b8"/>
+  <!-- Ethernet & USB Ports -->
+  <rect x="145" y="60" width="25" height="24" rx="2" fill="#94a3b8" stroke="#64748b"/>
+  <rect x="145" y="90" width="25" height="22" rx="2" fill="#0284c7" stroke="#0369a1"/>
+  <rect x="145" y="118" width="25" height="22" rx="2" fill="#0284c7" stroke="#0369a1"/>
+  <!-- Raspberry logo icon -->
+  <circle cx="55" cy="85" r="5" fill="#dc2626"/>
+  <circle cx="52" cy="92" r="4" fill="#dc2626"/>
+  <circle cx="58" cy="92" r="4" fill="#dc2626"/>
+  <text x="100" y="178" font-family="-apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="600">Raspberry Pi 4 Model B</text>
+</svg>

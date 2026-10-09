@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <rect x="45" y="70" width="110" height="75" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+  <rect x="52" y="76" width="30" height="35" rx="3" fill="#334155"/>
+  <rect x="85" y="76" width="30" height="35" rx="3" fill="#334155"/>
+  <rect x="118" y="76" width="30" height="35" rx="3" fill="#334155"/>
+  <rect x="52" y="115" width="96" height="24" rx="3" fill="#0f172a"/>
+  <!-- Pen standing -->
+  <line x1="65" y1="50" x2="65" y2="76" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="72" y1="55" x2="72" y2="76" stroke="#f43f5e" stroke-width="3" stroke-linecap="round"/>
+  <!-- Drawer handle -->
+  <rect x="92" y="125" width="16" height="4" rx="2" fill="#94a3b8"/>
+  <text x="100" y="175" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Mesh Desk Organizer Caddy</text>
+</svg>

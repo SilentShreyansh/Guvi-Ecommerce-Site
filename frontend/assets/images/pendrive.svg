@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- USB Connector -->
+  <rect x="86" y="25" width="28" height="35" rx="2" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+  <rect x="91" y="32" width="6" height="10" fill="#475569"/>
+  <rect x="103" y="32" width="6" height="10" fill="#475569"/>
+  <!-- Flash Drive Body -->
+  <rect x="75" y="55" width="50" height="95" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+  <!-- Red accent stripe -->
+  <rect x="80" y="80" width="40" height="6" fill="#dc2626" rx="2"/>
+  <!-- Lanyard hole -->
+  <circle cx="100" cy="135" r="5" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="100" y="110" font-family="-apple-system, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">128GB</text>
+  <text x="100" y="122" font-family="-apple-system, sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">USB 3.0</text>
+  <text x="100" y="185" font-family="-apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="600">SanDisk Ultra 128GB</text>
+</svg>

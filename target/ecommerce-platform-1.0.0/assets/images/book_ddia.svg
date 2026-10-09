@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <rect x="55" y="30" width="95" height="135" rx="3" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
+  <rect x="55" y="30" width="12" height="135" rx="1" fill="#dc2626"/>
+  <path d="M150,35 L155,38 L155,168 L150,165 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="110" y="55" font-family="-apple-system, sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" font-weight="800">O'REILLY</text>
+  <text x="110" y="75" font-family="-apple-system, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="900">Designing</text>
+  <text x="110" y="88" font-family="-apple-system, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="900">Data-Intensive</text>
+  <text x="110" y="101" font-family="-apple-system, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="900">Applications</text>
+  <circle cx="110" cy="122" r="14" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+  <path d="M103,122 L110,115 L117,122 M110,116 L110,129" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="110" y="152" font-family="-apple-system, sans-serif" font-size="8" fill="#475569" text-anchor="middle" font-weight="600">Martin Kleppmann</text>
+  <text x="100" y="185" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Designing Data-Intensive Apps</text>
+</svg>

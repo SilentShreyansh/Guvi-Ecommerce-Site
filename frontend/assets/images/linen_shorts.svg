@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Waistband -->
+  <rect x="65" y="55" width="70" height="12" rx="3" fill="#d6d3d1"/>
+  <!-- Drawstring -->
+  <path d="M96,67 L94,78 M104,67 L106,78" stroke="#78716c" stroke-width="2" stroke-linecap="round"/>
+  <!-- Shorts body -->
+  <path d="M65,67 L60,135 L93,135 L100,90 L107,135 L140,135 L135,67 Z" fill="#e7e5e4" stroke="#a8a29e" stroke-width="2"/>
+  <!-- Slash pockets -->
+  <line x1="72" y1="67" x2="68" y2="92" stroke="#a8a29e" stroke-width="1.5"/>
+  <line x1="128" y1="67" x2="132" y2="92" stroke="#a8a29e" stroke-width="1.5"/>
+  <text x="100" y="175" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Linen Blend Casual Shorts</text>
+</svg>

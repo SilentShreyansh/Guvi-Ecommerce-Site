@@ -1,0 +1,30 @@
+2026-10-07 17:51:47.484: [INFO] CurrentProfilePath: C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default
+2026-10-07 17:51:47.484: [INFO] Profiles total count: 1
+2026-10-07 17:51:47.484: [INFO] Profile: name=Profile 1 path=C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default lastActive=2026-10-07T17:51:47.455Z
+2026-10-07 17:51:47.484: [INFO] LastUsedProfileDir: C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default
+2026-10-07 17:51:47.484: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default lastActive=2026-10-07T17:51:47.455Z
+2026-10-07 17:51:47.484: [INFO] OnDoneLoading sync enabled: 0
+2026-10-07 17:51:47.484: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-07 17:51:47.484: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-07 17:51:47.484: [INFO] BookmarksSnapshot Startup total=3 bar=3 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-07 17:51:47.504: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-07 17:51:47.937: [INFO] VisibilityChanged: 0
+2026-10-07 17:51:52.466: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-07 17:51:52.499: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-07 17:51:52.531: [INFO] Primary account changed.
+2026-10-07 17:51:52.531: [INFO] OnPrimaryAccountChanged PrimaryAccountChangeEvent::Type::kSet
+2026-10-07 17:51:52.619: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-07 17:51:52.773: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-07 17:51:58.873: [INFO] BookmarksSnapshot Shutdown total=3 bar=3 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-07 17:52:29.099: [INFO] CurrentProfilePath: C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default
+2026-10-07 17:52:29.099: [INFO] Profiles total count: 1
+2026-10-07 17:52:29.099: [INFO] Profile: name=Personal path=C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default lastActive=2026-10-07T17:52:29.075Z
+2026-10-07 17:52:29.099: [INFO] LastUsedProfileDir: C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default
+2026-10-07 17:52:29.099: [INFO] MostRecentlyActiveProfile: name=Personal path=C:\Users\shrey\OneDrive\Desktop\GUVI E-Commerce Site\scratch\edge_profile\Default lastActive=2026-10-07T17:52:29.075Z
+2026-10-07 17:52:29.099: [INFO] OnDoneLoading sync enabled: 1
+2026-10-07 17:52:29.099: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-07 17:52:29.099: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-07 17:52:29.099: [INFO] BookmarksSnapshot Startup total=3 bar=3 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-07 17:52:29.278: [INFO] VisibilityChanged: 0
+2026-10-07 17:52:35.695: [INFO] Sync initialization duration: 6290ms
+2026-10-07 17:52:35.888: [INFO] BookmarksSnapshot Shutdown total=3 bar=3 other=0 mobile=0 showBar=0 showBarNTP=1

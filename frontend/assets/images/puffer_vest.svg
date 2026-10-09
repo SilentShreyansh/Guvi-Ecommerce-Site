@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Stand collar -->
+  <rect x="80" y="40" width="40" height="15" rx="3" fill="#0f172a"/>
+  <!-- Sleeveless Vest Body with horizontal baffles -->
+  <path d="M72,55 L58,95 L68,145 L132,145 L142,95 L128,55 Z" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+  <!-- Puffer quilt lines -->
+  <line x1="62" y1="75" x2="138" y2="75" stroke="#334155" stroke-width="2.5"/>
+  <line x1="60" y1="95" x2="140" y2="95" stroke="#334155" stroke-width="2.5"/>
+  <line x1="63" y1="115" x2="137" y2="115" stroke="#334155" stroke-width="2.5"/>
+  <line x1="66" y1="135" x2="134" y2="135" stroke="#334155" stroke-width="2.5"/>
+  <!-- Center zip -->
+  <line x1="100" y1="40" x2="100" y2="145" stroke="#94a3b8" stroke-width="2"/>
+  <text x="100" y="175" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Thermal Quilted Puffer Vest</text>
+</svg>

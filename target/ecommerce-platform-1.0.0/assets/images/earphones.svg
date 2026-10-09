@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Left Earbud -->
+  <path d="M60,65 C60,50 80,50 80,65 L76,85 C76,90 70,90 70,85 Z" fill="#0d9488" stroke="#0f766e" stroke-width="1.5"/>
+  <ellipse cx="65" cy="62" rx="6" ry="10" fill="#334155"/>
+  <!-- Right Earbud -->
+  <path d="M120,65 C120,50 140,50 140,65 L136,85 C136,90 130,90 130,85 Z" fill="#0d9488" stroke="#0f766e" stroke-width="1.5"/>
+  <ellipse cx="135" cy="62" rx="6" ry="10" fill="#334155"/>
+  <!-- Cables meeting at splitter -->
+  <path d="M73,88 C73,115 95,120 98,130" fill="none" stroke="#475569" stroke-width="2"/>
+  <path d="M133,88 C133,115 105,120 102,130" fill="none" stroke="#475569" stroke-width="2"/>
+  <!-- Y-splitter & In-line mic -->
+  <rect x="96" y="130" width="8" height="14" rx="2" fill="#1e293b"/>
+  <path d="M100,144 L100,165" stroke="#475569" stroke-width="2.5"/>
+  <!-- 3.5mm Jack -->
+  <rect x="96" y="165" width="8" height="15" rx="1" fill="#94a3b8"/>
+  <text x="100" y="192" font-family="-apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="600">Boult Bassbuds Wired</text>
+</svg>

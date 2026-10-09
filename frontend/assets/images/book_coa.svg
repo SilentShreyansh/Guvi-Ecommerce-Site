@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <rect x="55" y="30" width="95" height="135" rx="3" fill="#14532d" stroke="#052e16" stroke-width="2"/>
+  <rect x="55" y="30" width="12" height="135" rx="1" fill="#22c55e"/>
+  <path d="M150,35 L155,38 L155,168 L150,165 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="110" y="55" font-family="-apple-system, sans-serif" font-size="8" fill="#86efac" text-anchor="middle" font-weight="700">PEARSON</text>
+  <text x="110" y="78" font-family="-apple-system, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="900">COMPUTER</text>
+  <text x="110" y="90" font-family="-apple-system, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="900">ORGANIZATION</text>
+  <text x="110" y="103" font-family="-apple-system, sans-serif" font-size="8" fill="#ffffff" text-anchor="middle" font-weight="800">&amp; ARCHITECTURE</text>
+  <rect x="75" y="112" width="70" height="1" fill="#4ade80"/>
+  <text x="110" y="132" font-family="-apple-system, sans-serif" font-size="8" fill="#cbd5e1" text-anchor="middle">William Stallings</text>
+  <text x="110" y="152" font-family="-apple-system, sans-serif" font-size="8" fill="#86efac" text-anchor="middle" font-weight="700">11th Edition</text>
+  <text x="100" y="185" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Computer Org &amp; Architecture</text>
+</svg>

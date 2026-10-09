@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <rect x="65" y="75" width="70" height="70" rx="4" fill="#0284c7" stroke="#0369a1" stroke-width="2"/>
+  <!-- Mounting wings -->
+  <rect x="50" y="90" width="100" height="12" rx="2" fill="#0284c7" stroke="#0369a1" stroke-width="1.5"/>
+  <circle cx="56" cy="96" r="3" fill="#ffffff"/>
+  <circle cx="144" cy="96" r="3" fill="#ffffff"/>
+  <!-- Gear tower -->
+  <circle cx="85" cy="65" r="14" fill="#0369a1"/>
+  <circle cx="85" cy="65" r="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <!-- Servo horn arm -->
+  <rect x="70" y="62" width="55" height="7" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <circle cx="118" cy="65.5" r="2" fill="#334155"/>
+  <text x="100" y="175" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">SG90 9g Micro Servo Motor</text>
+</svg>

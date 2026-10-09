@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Black PCB Board -->
+  <rect x="55" y="35" width="90" height="130" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+  <!-- Metal Shielding Can (WROOM-32) -->
+  <rect x="65" y="45" width="70" height="50" rx="3" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Antenna trace pattern -->
+  <path d="M75,40 L125,40" stroke="#f59e0b" stroke-width="2"/>
+  <text x="100" y="72" font-family="-apple-system, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="800">ESP-WROOM-32</text>
+  <text x="100" y="84" font-family="-apple-system, sans-serif" font-size="7" fill="#475569" text-anchor="middle">Wi-Fi + BLE</text>
+  <!-- Micro USB -->
+  <rect x="90" y="155" width="20" height="12" rx="1" fill="#94a3b8"/>
+  <!-- Pin headers on sides -->
+  <g fill="#f59e0b">
+    <rect x="57" y="45" width="3" height="100" fill="#334155"/>
+    <rect x="140" y="45" width="3" height="100" fill="#334155"/>
+  </g>
+  <!-- CP2102 chip -->
+  <rect x="92" y="115" width="16" height="16" fill="#334155"/>
+  <text x="100" y="190" font-family="-apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="600">ESP32 IoT NodeMCU</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <rect x="70" y="30" width="60" height="135" rx="6" fill="#15803d" stroke="#14532d" stroke-width="2"/>
+  <!-- Micro USB Port -->
+  <rect x="85" y="24" width="30" height="12" rx="2" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
+  <!-- RP2040 chip -->
+  <rect x="86" y="80" width="28" height="28" rx="3" fill="#1e293b"/>
+  <circle cx="100" cy="94" r="6" fill="#22c55e"/>
+  <!-- Boot button -->
+  <rect x="94" y="50" width="12" height="10" rx="2" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <circle cx="100" cy="55" r="3" fill="#ef4444"/>
+  <!-- Pin rows -->
+  <g fill="#f59e0b">
+    <circle cx="76" cy="45" r="2.5"/><circle cx="124" cy="45" r="2.5"/>
+    <circle cx="76" cy="60" r="2.5"/><circle cx="124" cy="60" r="2.5"/>
+    <circle cx="76" cy="75" r="2.5"/><circle cx="124" cy="75" r="2.5"/>
+    <circle cx="76" cy="90" r="2.5"/><circle cx="124" cy="90" r="2.5"/>
+    <circle cx="76" cy="105" r="2.5"/><circle cx="124" cy="105" r="2.5"/>
+    <circle cx="76" cy="120" r="2.5"/><circle cx="124" cy="120" r="2.5"/>
+    <circle cx="76" cy="135" r="2.5"/><circle cx="124" cy="135" r="2.5"/>
+    <circle cx="76" cy="150" r="2.5"/><circle cx="124" cy="150" r="2.5"/>
+  </g>
+  <text x="100" y="185" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Raspberry Pi Pico RP2040</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Body & Sleeves -->
+  <path d="M68,48 L35,88 L52,98 L68,78 L68,155 L132,155 L132,78 L148,98 L165,88 L132,48 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <!-- Collar -->
+  <polygon points="68,48 100,68 82,75" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <polygon points="132,48 100,68 118,75" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Placket line & buttons -->
+  <line x1="100" y1="68" x2="100" y2="155" stroke="#e2e8f0" stroke-width="2"/>
+  <circle cx="100" cy="80" r="2" fill="#94a3b8"/>
+  <circle cx="100" cy="98" r="2" fill="#94a3b8"/>
+  <circle cx="100" cy="116" r="2" fill="#94a3b8"/>
+  <circle cx="100" cy="134" r="2" fill="#94a3b8"/>
+  <!-- Pocket -->
+  <rect x="76" y="85" width="16" height="18" rx="2" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="100" y="180" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Crisp White Formal Shirt</text>
+</svg>

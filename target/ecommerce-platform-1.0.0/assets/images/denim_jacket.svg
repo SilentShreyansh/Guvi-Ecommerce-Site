@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Body & Sleeves -->
+  <path d="M65,48 L32,88 L50,98 L65,78 L65,145 L135,145 L135,78 L150,98 L168,88 L135,48 Z" fill="#1d4ed8" stroke="#1e40af" stroke-width="2"/>
+  <!-- Collar -->
+  <polygon points="65,48 100,68 80,72" fill="#1e40af"/>
+  <polygon points="135,48 100,68 120,72" fill="#1e40af"/>
+  <!-- Chest pockets with flap -->
+  <rect x="72" y="80" width="22" height="18" rx="2" fill="#2563eb" stroke="#1e40af" stroke-width="1.5"/>
+  <rect x="106" y="80" width="22" height="18" rx="2" fill="#2563eb" stroke="#1e40af" stroke-width="1.5"/>
+  <circle cx="83" cy="85" r="2" fill="#d97706"/>
+  <circle cx="117" cy="85" r="2" fill="#d97706"/>
+  <!-- Center placket & brass buttons -->
+  <line x1="100" y1="68" x2="100" y2="145" stroke="#1e40af" stroke-width="2"/>
+  <circle cx="100" cy="104" r="2.5" fill="#d97706"/>
+  <circle cx="100" cy="120" r="2.5" fill="#d97706"/>
+  <circle cx="100" cy="136" r="2.5" fill="#d97706"/>
+  <text x="100" y="175" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Vintage Denim Trucker Jacket</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <!-- Body & Sleeves -->
+  <path d="M68,52 L40,82 L55,92 L68,78 L68,150 L132,150 L132,78 L145,92 L160,82 L132,52 Z" fill="#0f766e" stroke="#115e59" stroke-width="2"/>
+  <!-- Collar -->
+  <polygon points="68,52 100,68 85,78" fill="#134e4a"/>
+  <polygon points="132,52 100,68 115,78" fill="#134e4a"/>
+  <!-- Placket -->
+  <rect x="94" y="68" width="12" height="28" fill="#134e4a"/>
+  <circle cx="100" cy="76" r="1.5" fill="#ffffff"/>
+  <circle cx="100" cy="88" r="1.5" fill="#ffffff"/>
+  <text x="100" y="180" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Pique Knit Polo T-Shirt</text>
+</svg>

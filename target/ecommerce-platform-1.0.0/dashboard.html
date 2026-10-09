@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartivo — Management Portal (Buyer / Seller / Admin)</title>
+  <meta name="description" content="Cartivo management portal for Buyer orders, Seller inventory, and Admin moderation.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="announcement-bar">
+    <div class="announcement-container">
+      <div class="announcement-text">
+        <span>Cartivo Management Portal &bull; Multi-Role E-Commerce Administration</span>
+      </div>
+      <div class="announcement-tools">
+        <a href="index.html" style="color:#ffffff; font-weight:700; text-decoration:none;">&larr; Back to Store</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <span class="brand-text">Cartivo</span>
+        <span class="brand-tag">PORTAL</span>
+      </a>
+
+      <!-- Role Tabs -->
+      <div class="dashboard-nav-tabs" style="margin-bottom:0;" aria-label="Role Switcher">
+        <button type="button" class="dash-tab-btn active" id="tabBuyer" onclick="switchDashboardRole('BUYER')">Buyer View</button>
+        <button type="button" class="dash-tab-btn" id="tabSeller" onclick="switchDashboardRole('SELLER')">Seller View</button>
+        <button type="button" class="dash-tab-btn" id="tabAdmin" onclick="switchDashboardRole('ADMIN')">Admin View</button>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:16px;">
+        <button type="button" class="hero-cta-btn" id="btnHeaderAddProduct" onclick="openAddProductModal()" style="padding:8px 18px; font-size:13px; border-radius:var(--radius-pill); font-weight:700;">+ Add Product</button>
+        <div style="font-size:13px; text-align:right;">
+          <strong id="dashUserName">Rahul Sharma</strong><br>
+          <span style="font-size:11px; color:var(--text-muted);" id="dashUserEmail">rahul.s@student.guvi.in</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard-container">
+    
+    <div style="margin-bottom:28px;">
+      <h2 id="dashHeading" style="font-family:var(--font-heading); font-size:28px; font-weight:900; margin-bottom:6px;">Student Buyer Dashboard</h2>
+      <p id="dashSubheading" style="color:var(--text-muted); font-size:14px;">Review past purchases, download order receipts, and track express campus hostel packages.</p>
+    </div>
+
+    <!-- 4 Stats Cards -->
+    <div class="metrics-row" id="metricsGrid"></div>
+
+    <!-- BUYER VIEW -->
+    <div id="buyerSection">
+      <div class="dash-table-card">
+        <div class="dash-table-header">
+          <h4 class="dash-table-title">My Orders</h4>
+          <span style="font-size:12px; color:var(--text-muted);">Real-time status tracking</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="dash-data-table" id="buyerOrdersTable">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Items Ordered</th>
+                <th>Total Amount</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="buyerOrdersTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+        <div class="metric-stat-box">
+          <h4 style="margin-bottom:12px; font-family:var(--font-heading); font-size:16px; font-weight:800;">Saved Delivery Address</h4>
+          <p style="font-size:13px; line-height:1.6; color:var(--text-muted);">
+            <strong style="color:var(--text-main);">Rahul Sharma</strong><br>
+            Room 204, Kaveri Hostel, IITM Campus<br>
+            Chennai, Tamil Nadu - 600113<br>
+            Mobile: +91 98765 43220
+          </p>
+          <button type="button" class="btn-view-all" style="margin-top:14px; padding:6px 16px; font-size:12px;" onclick="showToast('Address management active', 'info')">
+            Edit Address
+          </button>
+        </div>
+
+        <div class="metric-stat-box">
+          <h4 style="margin-bottom:12px; font-family:var(--font-heading); font-size:16px; font-weight:800;">Account & Verification</h4>
+          <p style="font-size:13px; line-height:1.8; color:var(--text-muted);">
+            <strong>Email:</strong> rahul.s@student.guvi.in<br>
+            <strong>Role:</strong> BUYER (Verified Account)<br>
+            <strong>Status:</strong> <span class="badge-status badge-active">ACTIVE</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SELLER VIEW -->
+    <div id="sellerSection" style="display:none;">
+      <div class="dash-table-card">
+        <div class="dash-table-header">
+          <h4 class="dash-table-title">Inventory & Product Catalog</h4>
+          <button type="button" id="btnAddProduct" class="hero-cta-btn" style="padding:8px 20px; font-size:13px; border-radius:var(--radius-pill);" onclick="openAddProductModal()">
+            + Add Product
+          </button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="dash-data-table" id="sellerProductsTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>MRP</th>
+                <th>Stock</th>
+                <th>Rating</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sellerProductsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="dash-table-card">
+        <div class="dash-table-header">
+          <h4 class="dash-table-title">Order Fulfillment & Dispatch</h4>
+          <span style="font-size:12px; color:var(--text-muted);">Advance status as orders are packed</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="dash-data-table" id="sellerFulfillTable">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Recipient</th>
+                <th>Delivery Address</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sellerFulfillTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div id="adminSection" style="display:none;">
+      <div class="dash-table-card">
+        <div class="dash-table-header">
+          <h4 class="dash-table-title">User Management & Moderation</h4>
+          <span style="font-size:12px; color:var(--text-muted);">Manage platform roles & status</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="dash-data-table" id="adminUsersTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminUsersTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Add Product Modal in Dashboard -->
+  <div class="modal-overlay" id="addProductModal" role="dialog" aria-modal="true" aria-labelledby="addProductModalTitle" onclick="if(event.target === this && !isSavingProduct) closeAddProductModal();">
+    <div class="modal-window add-product-modal-window">
+      <div class="modal-header-strip">
+        <div>
+          <h3 id="addProductModalTitle" style="font-family:var(--font-heading); font-size:22px; font-weight:800; color:var(--text-heading); margin:0 0 4px 0;">Add New Product</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Publish a new item to your seller catalog & student storefront</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button type="submit" form="addProductForm" class="hero-cta-btn" id="btnQuickAddProduct" style="padding:8px 22px; font-size:13px; font-weight:700; border-radius:var(--radius-pill); cursor:pointer;">
+            + Add Product
+          </button>
+          <button type="button" class="modal-close-corner" onclick="closeAddProductModal()" aria-label="Close modal" id="btnCloseAddProductModal" style="position:static;">&times;</button>
+        </div>
+      </div>
+
+      <form id="addProductForm" onsubmit="submitAddProduct(event)" novalidate>
+        <div class="modal-body-content">
+          <!-- Alert box for form-level errors -->
+          <div id="addProductErrorAlert" class="form-error-alert" style="display:none;" role="alert"></div>
+
+          <!-- Section 1: Basic Information -->
+          <div class="form-section-card">
+            <h5 class="form-section-title">1. Product Information</h5>
+            <div class="checkout-form-grid">
+              <div class="form-group-full">
+                <label for="prodName" class="form-field-label">Product Name <span class="required-star">*</span></label>
+                <input type="text" id="prodName" class="form-field-input" placeholder="e.g. Vintage Washed Denim Jacket" required maxlength="200">
+                <span class="field-error-msg" id="errProdName"></span>
+              </div>
+
+              <div>
+                <label for="prodCategory" class="form-field-label">Category <span class="required-star">*</span></label>
+                <select id="prodCategory" class="form-field-select" required>
+                  <option value="">-- Select Category --</option>
+                  <option value="6" selected>Casual Wear</option>
+                  <option value="7">Formal & Evening</option>
+                  <option value="8">Outerwear & Coats</option>
+                  <option value="1">Computer Peripherals</option>
+                  <option value="2">Audio & Wearables</option>
+                  <option value="3">CS & Engineering Books</option>
+                  <option value="4">Lab & DIY Hardware</option>
+                  <option value="5">Campus & Stationery</option>
+                </select>
+                <span class="field-error-msg" id="errProdCategory"></span>
+              </div>
+
+              <div>
+                <label for="prodBrand" class="form-field-label">Brand / Sub-label</label>
+                <input type="text" id="prodBrand" class="form-field-input" placeholder="e.g. Campus Style Studio" maxlength="100">
+                <span class="field-error-msg" id="errProdBrand"></span>
+              </div>
+
+              <div class="form-group-full">
+                <label for="prodSpecs" class="form-field-label">Short Specifications / Highlights</label>
+                <input type="text" id="prodSpecs" class="form-field-input" placeholder="e.g. 100% Combed Cotton • 240 GSM • Relaxed Cut" maxlength="255">
+                <span class="field-error-msg" id="errProdSpecs"></span>
+              </div>
+
+              <div class="form-group-full">
+                <label for="prodDesc" class="form-field-label">Product Description <span class="required-star">*</span></label>
+                <textarea id="prodDesc" class="form-field-input" style="height:88px; padding:12px 14px; resize:vertical; font-family:inherit; font-size:14px; line-height:1.5;" placeholder="Provide details on fabric blend, fit, wash care, and styling notes..." required></textarea>
+                <span class="field-error-msg" id="errProdDesc"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Pricing, Inventory & Status -->
+          <div class="form-section-card" style="margin-top:18px;">
+            <h5 class="form-section-title">2. Pricing & Inventory</h5>
+            <div class="checkout-form-grid">
+              <div>
+                <label for="prodPrice" class="form-field-label">Selling Price (₹) <span class="required-star">*</span></label>
+                <input type="number" id="prodPrice" class="form-field-input" placeholder="e.g. 1299" min="1" step="0.01" required oninput="calcAddProductDiscount()">
+                <span class="field-error-msg" id="errProdPrice"></span>
+              </div>
+
+              <div>
+                <label for="prodMrp" class="form-field-label">Original Price / MRP (₹) <span class="required-star">*</span></label>
+                <input type="number" id="prodMrp" class="form-field-input" placeholder="e.g. 1999" min="1" step="0.01" required oninput="calcAddProductDiscount()">
+                <span class="field-error-msg" id="errProdMrp"></span>
+              </div>
+
+              <div>
+                <label for="prodStock" class="form-field-label">Available Stock Quantity <span class="required-star">*</span></label>
+                <input type="number" id="prodStock" class="form-field-input" placeholder="e.g. 35" min="0" step="1" required>
+                <span class="field-error-msg" id="errProdStock"></span>
+              </div>
+
+              <div>
+                <label for="prodStatus" class="form-field-label">Listing Status</label>
+                <select id="prodStatus" class="form-field-select">
+                  <option value="ACTIVE" selected>Active (Published to Store)</option>
+                  <option value="INACTIVE">Inactive (Draft / Hidden)</option>
+                </select>
+              </div>
+
+              <div class="form-group-full" id="discountPreviewRow" style="display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--bg-input); border-radius:var(--radius-sm); font-size:13px;">
+                <span style="color:var(--text-muted); font-weight:600;">Pricing Summary:</span>
+                <span id="badgeDiscountCalc" class="card-discount-badge" style="display:none;">-0% OFF</span>
+                <span id="textDiscountCalc" style="color:var(--text-muted); font-size:12px;">Enter price & MRP to see discount percentage</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Media & Variants -->
+          <div class="form-section-card" style="margin-top:18px;">
+            <h5 class="form-section-title">3. Media & Variants</h5>
+            <div class="checkout-form-grid">
+              <div class="form-group-full">
+                <label for="prodImageSelect" class="form-field-label">Product Image Selection <span class="required-star">*</span></label>
+                <div style="display:grid; grid-template-columns: 1fr auto; gap:14px; align-items:start;">
+                  <div>
+                    <select id="prodImageSelect" class="form-field-select" onchange="onAddProductImageChange()">
+                      <option value="tshirt_casual.jpg" selected>Classic Casual T-Shirt (tshirt_casual.jpg)</option>
+                      <option value="denim_jeans.jpg">Washed Denim Jeans (denim_jeans.jpg)</option>
+                      <option value="wool_coat.jpg">Meridian Wool Coat (wool_coat.jpg)</option>
+                      <option value="graphic_tshirt.jpg">Graphic Streetwear T-Shirt (graphic_tshirt.jpg)</option>
+                      <option value="checkered_shirt.jpg">Buffalo Checkered Flannel (checkered_shirt.jpg)</option>
+                      <option value="striped_shirt.jpg">Vertical Striped Oxford Shirt (striped_shirt.jpg)</option>
+                      <option value="cat_casual.jpg">Editorial Streetwear (cat_casual.jpg)</option>
+                      <option value="cat_formal.jpg">Tailored Formal Suit (cat_formal.jpg)</option>
+                      <option value="cat_gym.jpg">Athletic Activewear (cat_gym.jpg)</option>
+                      <option value="cat_party.jpg">Evening & Partywear (cat_party.jpg)</option>
+                      <option value="headphones.jpg">boAt Bluetooth Headphones (headphones.jpg)</option>
+                      <option value="mouse.jpg">Logitech Optical Mouse (mouse.jpg)</option>
+                      <option value="keyboard.jpg">Mechanical Keyboard (keyboard.jpg)</option>
+                      <option value="custom">-- Enter Custom Image URL or Filename --</option>
+                    </select>
+                    <input type="text" id="prodCustomImageUrl" class="form-field-input" placeholder="e.g. assets/images/new_apparel.jpg or https://..." style="margin-top:8px; display:none;" oninput="updateAddProductImgPreview()">
+                    <span class="field-error-msg" id="errProdImage"></span>
+                  </div>
+                  <div class="add-prod-img-preview-box">
+                    <img id="addProductImgPreview" src="assets/images/tshirt_casual.jpg" alt="Preview" onerror="this.src='assets/images/mouse.jpg'">
+                    <span style="font-size:10px; color:var(--text-muted); display:block; text-align:center; margin-top:4px;">Live Preview</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-full">
+                <label class="form-field-label">Available Sizes (Fashion Variants)</label>
+                <div class="variant-sizes-pill-row">
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="XS"> <span>XS</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="S" checked> <span>S</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="M" checked> <span>M</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="L" checked> <span>L</span></label>
+                  <label class="size-checkbox-pill"><input type="checkbox" name="prodSizes" value="XL" checked> <span>XL</span></label>
+                </div>
+              </div>
+
+              <div>
+                <label for="prodSku" class="form-field-label">SKU / Product Code (Optional)</label>
+                <input type="text" id="prodSku" class="form-field-input" placeholder="e.g. SK-2026-FSH01" maxlength="50">
+              </div>
+
+              <div>
+                <label for="prodRatingDisplay" class="form-field-label">Initial Product Rating</label>
+                <input type="text" id="prodRatingDisplay" class="form-field-input" value="★ 4.5 (Verified Reviews Standard)" disabled style="background:#e9ecef; cursor:not-allowed; color:var(--text-muted);">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="btn-view-all" onclick="closeAddProductModal()" id="btnCancelAddProduct" style="border:1px solid var(--border-subtle); padding:10px 22px; cursor:pointer;">Cancel</button>
+          <button type="submit" class="hero-cta-btn" id="btnSaveProduct" style="padding:10px 32px; border-radius:var(--radius-pill); font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+            <span id="btnSaveProductSpinner" class="spinner-inline" style="display:none;"></span>
+            <span id="btnSaveProductText">+ Add Product</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Route Modal in Dashboard -->
+  <div class="modal-overlay" id="routeModal" onclick="if(event.target === this) closeRouteModal();">
+    <div class="modal-window route-modal-box">
+      <div class="route-header-strip">
+        <h3>Delivery Route & Order Tracking</h3>
+        <button type="button" class="btn-drawer-close" onclick="closeRouteModal()">&times;</button>
+      </div>
+      <div class="route-modal-body">
+        <div class="route-search-bar">
+          <input type="text" id="routeSearchInput" placeholder="Enter Order #">
+          <button type="button" class="btn-track-action" onclick="lookupRouteOrder()">Track Route</button>
+        </div>
+        <div class="route-quick-chips" id="routeQuickChips"></div>
+        <div class="route-status-card" id="routeInfoCard">
+          <div class="route-card-top">
+            <div>
+              <span class="route-order-id" id="routeOrderNum">ORD-2026-1004</span>
+              <span class="route-status-pill badge-status badge-out_for_delivery" id="routeStatusBadge">OUT_FOR_DELIVERY</span>
+            </div>
+          </div>
+          <div style="font-size:13px; line-height:1.6;">
+            <strong>Destination:</strong> <span id="routeAddress">Room 204, Kaveri Hostel</span><br>
+            <strong>Estimated:</strong> <span id="routeEstimatedTime" style="color:var(--status-success);">Today by 7:00 PM</span>
+          </div>
+        </div>
+        <div class="route-timeline" id="routeTimeline"></div>
+        <div id="routeItemsBox" style="margin-top:20px; background:var(--bg-input); padding:16px; border-radius:var(--radius-md);"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer" aria-live="assertive"></div>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      initDashboard();
+    });
+  </script>
+</body>
+</html>

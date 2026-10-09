@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#f8fafc"/>
+  <rect x="80" y="25" width="40" height="150" rx="6" fill="#334155"/>
+  <rect x="68" y="55" width="64" height="75" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="3"/>
+  <rect x="74" y="61" width="52" height="63" rx="8" fill="#1e293b"/>
+  <text x="100" y="92" font-family="-apple-system, sans-serif" font-size="18" fill="#38bdf8" text-anchor="middle" font-weight="800">10:42</text>
+  <text x="100" y="108" font-family="-apple-system, sans-serif" font-size="9" fill="#10b981" text-anchor="middle" font-weight="600">7,420 STEPS</text>
+  <circle cx="134" cy="92" r="3" fill="#64748b"/>
+  <text x="100" y="185" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="600">Noise ColorFit Pulse 2</text>
+</svg>
